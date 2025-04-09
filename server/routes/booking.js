@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Search API');
+router.post('/', (req, res) => {
+  res.send('Booking created');
 });
 
 module.exports = router;
