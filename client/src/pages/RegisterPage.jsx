@@ -55,7 +55,7 @@ export function RegisterPage() {
 
             <label className="flex items-start space-x-2 text-sm">
               <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
-              <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na Apartmanija.hr katalozima.</span>
+              <span>Pročitao/la sam i slažem se s uvjetima i pravilima oglašavanja na ____________</span>
             </label>
 
             <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
