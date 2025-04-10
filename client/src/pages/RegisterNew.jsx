@@ -26,7 +26,7 @@ export function RegisterNew() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white rounded shadow-md p-8 w-full max-w-4xl space-y-4">
+      <div className="bg-white rounded shadow-md p-8 w-full max-w-5xl space-y-4">
         <div className="flex justify-center gap-4 mb-6">
           <button
             type="button"
@@ -45,7 +45,7 @@ export function RegisterNew() {
         </div>
 
         <form className="space-y-6">
-          {/* First row of fields */}
+          {/* First row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
             <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="p-2 border rounded" />
@@ -57,10 +57,10 @@ export function RegisterNew() {
             )}
           </div>
 
-          {/* Second row of fields */}
+          {/* Second row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {userType === 'pravne' && (
-              <input type="text" name="nazivTvrtke" value={formData.nazivTvrtke} onChange={handleChange} placeholder="Naziv tvrtke" className="p-2 border rounded col-span-3" />
+              <input type="text" name="nazivTvrtke" value={formData.nazivTvrtke} onChange={handleChange} placeholder="Naziv tvrtke" className="p-2 border rounded md:col-span-3" />
             )}
             <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
             <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
