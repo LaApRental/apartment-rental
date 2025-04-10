@@ -1,12 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export function RegisterNew() {
-  const navigate = useNavigate();
   const [userType, setUserType] = useState('privatni');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [countdown, setCountdown] = useState(4);
 
   const [formData, setFormData] = useState({
     ime: '',
@@ -22,15 +19,6 @@ export function RegisterNew() {
     prihvacamUvijete: false,
     korisnikTip: 'privatni'
   });
-
-  useEffect(() => {
-    if (showSuccessModal && countdown > 0) {
-      const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (countdown === 0) {
-      navigate('/login');
-    }
-  }, [showSuccessModal, countdown, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -75,7 +63,6 @@ export function RegisterNew() {
           korisnikTip: userType
         });
         setShowSuccessModal(true);
-        setCountdown(4);
       }
     } catch (err) {
       alert('Greška prilikom slanja podataka.');
@@ -133,7 +120,7 @@ export function RegisterNew() {
 
           <label className="flex items-start space-x-2 text-sm">
             <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
-            <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
+            <span>Pročitao/la sam i slažem se s uvjetima i pravilima oglašavanja na hrvatska-apartmani.com katalozima.</span>
           </label>
 
           <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
@@ -146,8 +133,7 @@ export function RegisterNew() {
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg text-center max-w-md">
             <h2 className="text-xl font-bold text-green-700 mb-2">Hvala vam što ste se registrirali.</h2>
-            <p className="text-gray-700 mb-4 text-sm">Na Vašu e-mail adresu smo poslali lozinku za prijavu u korisničko sučelje.</p>
-            <p className="text-gray-500 text-sm">Preusmjeravamo vas na stranicu za prijavu... ({countdown})</p>
+            <p className="text-gray-700 text-sm">Na Vašu e-mail adresu smo poslali poveznicu za aktivaciju računa.</p>
           </div>
         </div>
       )}
