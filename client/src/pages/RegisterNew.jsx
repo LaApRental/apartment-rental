@@ -64,17 +64,30 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2: fixed 6 fields, no wrapping */}
+          {/* Row 2: 6 columns, Adresa spans 2 or 3 depending on userType */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            {userType === 'pravne' ? (
+              <input
+                type="text"
+                name="nazivTvrtke"
+                value={formData.nazivTvrtke}
+                onChange={handleChange}
+                placeholder="Naziv tvrtke"
+                className="p-2 border rounded"
+              />
+            ) : (
+              <div className="invisible p-2">-</div>
+            )}
+
             <input
               type="text"
-              name="nazivTvrtke"
-              value={formData.nazivTvrtke}
+              name="adresa"
+              value={formData.adresa}
               onChange={handleChange}
-              placeholder="Naziv tvrtke"
-              className={`p-2 border rounded ${userType === 'privatni' ? 'invisible' : ''}`}
+              placeholder="Adresa"
+              className={`p-2 border rounded ${userType === 'pravne' ? 'md:col-span-2' : ''}`}
             />
-            <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
+
             <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
             <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
