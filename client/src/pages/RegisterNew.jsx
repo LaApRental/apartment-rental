@@ -64,9 +64,9 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2: 6 columns, Adresa spans 2 or 3 depending on userType */}
+          {/* Row 2: 6 columns, Adresa shifts left in privatni mode */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {userType === 'pravne' ? (
+            {userType === 'pravne' && (
               <input
                 type="text"
                 name="nazivTvrtke"
@@ -75,8 +75,6 @@ export function RegisterNew() {
                 placeholder="Naziv tvrtke"
                 className="p-2 border rounded"
               />
-            ) : (
-              <div className="invisible p-2">-</div>
             )}
 
             <input
@@ -85,13 +83,43 @@ export function RegisterNew() {
               value={formData.adresa}
               onChange={handleChange}
               placeholder="Adresa"
-              className={`p-2 border rounded ${userType === 'pravne' ? 'md:col-span-2' : ''}`}
+              className={`p-2 border rounded ${
+                userType === 'pravne' ? 'md:col-span-2' : 'md:col-span-3 col-start-1'
+              }`}
             />
 
-            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-            <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-            <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-            <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+            <input
+              type="text"
+              name="postanskiBroj"
+              value={formData.postanskiBroj}
+              onChange={handleChange}
+              placeholder="Poštanski broj"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="grad"
+              value={formData.grad}
+              onChange={handleChange}
+              placeholder="Grad"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="mobitel"
+              value={formData.mobitel}
+              onChange={handleChange}
+              placeholder="Mobilni telefon"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="fiksni"
+              value={formData.fiksni}
+              onChange={handleChange}
+              placeholder="Fiksni telefon"
+              className="p-2 border rounded"
+            />
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
