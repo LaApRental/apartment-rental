@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb+srv://ninoroso:g16Vt67rskAOaFMr@cluster0.dt8eenk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect(process.env.MONGO_URL || 'mongodb+srv://ninoroso:g16Vt67rskAOaFMr@cluster0.dt8eenk.mongodb.net/apartmentRental?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log('MongoDB connected'))
