@@ -71,7 +71,7 @@ const handleSubmit = async (e) => {
           </button>
         </div>
 
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Row 1 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
