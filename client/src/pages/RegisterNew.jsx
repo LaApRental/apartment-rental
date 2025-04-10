@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function RegisterNew() {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('privatni');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [countdown, setCountdown] = useState(4);
 
   const [formData, setFormData] = useState({
     ime: '',
@@ -21,6 +22,15 @@ export function RegisterNew() {
     prihvacamUvijete: false,
     korisnikTip: 'privatni'
   });
+
+  useEffect(() => {
+    if (showSuccessModal && countdown > 0) {
+      const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (countdown === 0) {
+      navigate('/login');
+    }
+  }, [showSuccessModal, countdown, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -65,6 +75,7 @@ export function RegisterNew() {
           korisnikTip: userType
         });
         setShowSuccessModal(true);
+        setCountdown(4);
       }
     } catch (err) {
       alert('Greška prilikom slanja podataka.');
@@ -81,7 +92,7 @@ export function RegisterNew() {
               setUserType('privatni');
               setFormData((prev) => ({ ...prev, korisnikTip: 'privatni' }));
             }}
-            className={`flex-1 px-4 py-2 rounded border ${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+            className={\`flex-1 px-4 py-2 rounded border \${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'}\`}
           >
             Privatni korisnici
           </button>
@@ -91,14 +102,13 @@ export function RegisterNew() {
               setUserType('pravne');
               setFormData((prev) => ({ ...prev, korisnikTip: 'pravne' }));
             }}
-            className={`flex-1 px-4 py-2 rounded border ${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+            className={\`flex-1 px-4 py-2 rounded border \${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'}\`}
           >
             Pravne osobe
           </button>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Row 1 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
             <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="p-2 border rounded" />
@@ -106,7 +116,6 @@ export function RegisterNew() {
             <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder={userType === 'privatni' ? 'OIB' : 'OIB tvrtke'} className="p-2 border rounded" />
           </div>
 
-          {/* Row 2 */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
             {userType === 'privatni' ? (
               <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded md:col-span-2" />
@@ -133,14 +142,12 @@ export function RegisterNew() {
         </form>
       </div>
 
-      {/* Custom Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg text-center max-w-md">
-            <h2 className="text-lg font-bold mb-4">Registracija uspješna!</h2>
-            <button onClick={() => setShowSuccessModal(false)} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-              U redu
-            </button>
+            <h2 className="text-xl font-bold text-green-700 mb-2">Hvala vam što ste se registrirali.</h2>
+            <p className="text-gray-700 mb-4 text-sm">Na Vašu e-mail adresu smo poslali lozinku za prijavu u korisničko sučelje.</p>
+            <p className="text-gray-500 text-sm">Preusmjeravamo vas na stranicu za prijavu... ({countdown})</p>
           </div>
         </div>
       )}
