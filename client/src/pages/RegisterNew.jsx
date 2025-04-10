@@ -13,7 +13,8 @@ export function RegisterNew() {
     grad: '',
     mobitel: '',
     fiksni: '',
-    prihvacamUvijete: false
+    prihvacamUvijete: false,
+    korisnikTip: 'privatni'
   });
 
   const handleChange = (e) => {
@@ -24,45 +25,43 @@ export function RegisterNew() {
     }));
   };
 
-  
-const handleSubmit = async (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-  // ✅ Require terms acceptance before registering
-  if (!formData.prihvacamUvijete) {
-    alert("Molimo označite da se slažete s uvjetima.");
-    return;
-  }
-  
-  e.preventDefault();
-  try {
-    const response = await fetch('https://apartment-rental.onrender.com/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      alert(result.error || 'Neuspješna registracija.');
-    } else {
-      alert('Registracija uspješna!');
+    if (!formData.prihvacamUvijete) {
+      alert('Molimo označite da se slažete s uvjetima.');
+      return;
     }
-  } catch (err) {
-    alert('Greška prilikom slanja podataka.');
-  }
-};
 
-  
+    try {
+      const response = await fetch('https://apartment-rental.onrender.com/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert(result.error || 'Neuspješna registracija.');
+      } else {
+        alert('Registracija uspješna!');
+      }
+    } catch (err) {
+      alert('Greška prilikom slanja podataka.');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded shadow-md p-8 w-full max-w-6xl space-y-4">
         <div className="flex justify-center gap-4 mb-6">
           <button
             type="button"
-            onClick={() => setUserType('privatni')}
+            onClick={() => {
+              setUserType('privatni');
+              setFormData((prev) => ({ ...prev, korisnikTip: 'privatni' }));
+            }}
             className={`flex-1 px-4 py-2 rounded border ${
               userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'
             }`}
@@ -71,7 +70,10 @@ const handleSubmit = async (e) => {
           </button>
           <button
             type="button"
-            onClick={() => setUserType('pravne')}
+            onClick={() => {
+              setUserType('pravne');
+              setFormData((prev) => ({ ...prev, korisnikTip: 'pravne' }));
+            }}
             className={`flex-1 px-4 py-2 rounded border ${
               userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'
             }`}
@@ -96,7 +98,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          {/* Row 2: Always 6 columns */}
+          {/* Row 2 */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
             {userType === 'privatni' ? (
               <input
@@ -128,38 +130,10 @@ const handleSubmit = async (e) => {
               </>
             )}
 
-            <input
-              type="text"
-              name="postanskiBroj"
-              value={formData.postanskiBroj}
-              onChange={handleChange}
-              placeholder="Poštanski broj"
-              className="p-2 border rounded"
-            />
-            <input
-              type="text"
-              name="grad"
-              value={formData.grad}
-              onChange={handleChange}
-              placeholder="Grad"
-              className="p-2 border rounded"
-            />
-            <input
-              type="text"
-              name="mobitel"
-              value={formData.mobitel}
-              onChange={handleChange}
-              placeholder="Mobilni telefon"
-              className="p-2 border rounded"
-            />
-            <input
-              type="text"
-              name="fiksni"
-              value={formData.fiksni}
-              onChange={handleChange}
-              placeholder="Fiksni telefon"
-              className="p-2 border rounded"
-            />
+            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
+            <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
+            <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
+            <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
