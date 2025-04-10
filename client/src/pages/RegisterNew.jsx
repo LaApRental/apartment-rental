@@ -24,6 +24,29 @@ export function RegisterNew() {
     }));
   };
 
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      alert(result.error || 'Neuspješna registracija.');
+    } else {
+      alert('Registracija uspješna!');
+    }
+  } catch (err) {
+    alert('Greška prilikom slanja podataka.');
+  }
+};
+
+  
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded shadow-md p-8 w-full max-w-6xl space-y-4">
