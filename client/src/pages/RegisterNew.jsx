@@ -76,9 +76,19 @@ export function RegisterNew() {
                 className="p-2 border rounded"
               />
             ) : (
-              <div className="p-2 invisible"></div>  // spacer
+              <div className="p-2 invisible"></div>
             )}
-            <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
+
+            <input
+              type="text"
+              name="adresa"
+              value={formData.adresa}
+              onChange={handleChange}
+              placeholder="Adresa"
+              id="address"
+              className={`p-2 border rounded ${userType === 'privatni' ? 'md:col-span-2' : 'md:col-span-1'}`}
+            />
+
             <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
             <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
