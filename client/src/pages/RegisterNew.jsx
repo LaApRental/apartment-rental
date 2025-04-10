@@ -64,8 +64,9 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2: 6 columns always filled */}
+          {/* Row 2: exact 6 slots, column-aligned */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            {/* Column 1: Naziv tvrtke or empty */}
             {userType === 'pravne' ? (
               <input
                 type="text"
@@ -76,26 +77,65 @@ export function RegisterNew() {
                 className="p-2 border rounded"
               />
             ) : (
-              <div className="p-2 invisible"></div>
+              <div className="invisible p-2">-</div>
             )}
 
+            {/* Columns 2-3: Adresa spans 2 cols */}
             <input
               type="text"
               name="adresa"
               value={formData.adresa}
               onChange={handleChange}
               placeholder="Adresa"
-              id="address"
-              className={`p-2 border rounded ${userType === 'privatni' ? 'md:col-span-2' : 'md:col-span-1'}`}
+              className="p-2 border rounded md:col-span-2"
             />
 
-            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-            <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-            <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-            <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+            {/* Column 4: Postanski broj */}
+            <input
+              type="text"
+              name="postanskiBroj"
+              value={formData.postanskiBroj}
+              onChange={handleChange}
+              placeholder="Poštanski broj"
+              className="p-2 border rounded"
+            />
 
-            {/* Spacer to prevent wrap in privatni */}
-            {userType === 'privatni' && <div className="p-2 invisible"></div>}
+            {/* Column 5: Grad */}
+            <input
+              type="text"
+              name="grad"
+              value={formData.grad}
+              onChange={handleChange}
+              placeholder="Grad"
+              className="p-2 border rounded"
+            />
+
+            {/* Column 6: Mobitel */}
+            <input
+              type="text"
+              name="mobitel"
+              value={formData.mobitel}
+              onChange={handleChange}
+              placeholder="Mobilni telefon"
+              className="p-2 border rounded"
+            />
+          </div>
+
+          {/* Forced second part of row 2 for Fiksni */}
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <input
+              type="text"
+              name="fiksni"
+              value={formData.fiksni}
+              onChange={handleChange}
+              placeholder="Fiksni telefon"
+              className="p-2 border rounded"
+            />
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
