@@ -93,6 +93,9 @@ export function RegisterNew() {
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
             <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
             <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+
+            {/* Spacer to prevent wrap in privatni */}
+            {userType === 'privatni' && <div className="p-2 invisible"></div>}
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
