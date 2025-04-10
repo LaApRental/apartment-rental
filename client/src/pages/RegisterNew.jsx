@@ -45,28 +45,40 @@ export function RegisterNew() {
         </div>
 
         <form className="space-y-6">
-          {/* First row */}
+          {/* First row - 4 fields */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
             <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="p-2 border rounded" />
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-mail" className="p-2 border rounded" />
-            {userType === 'privatni' ? (
-              <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB" className="p-2 border rounded" />
-            ) : (
-              <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB tvrtke" className="p-2 border rounded" />
-            )}
+            <input
+              type="text"
+              name="oib"
+              value={formData.oib}
+              onChange={handleChange}
+              placeholder={userType === 'privatni' ? 'OIB' : 'OIB tvrtke'}
+              className="p-2 border rounded"
+            />
           </div>
 
-          {/* Second row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Second row - forced 1 full row */}
+          <div className="space-y-4">
             {userType === 'pravne' && (
-              <input type="text" name="nazivTvrtke" value={formData.nazivTvrtke} onChange={handleChange} placeholder="Naziv tvrtke" className="p-2 border rounded md:col-span-3" />
+              <input
+                type="text"
+                name="nazivTvrtke"
+                value={formData.nazivTvrtke}
+                onChange={handleChange}
+                placeholder="Naziv tvrtke"
+                className="w-full p-2 border rounded"
+              />
             )}
-            <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
-            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-            <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-            <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-            <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
+              <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
+              <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
+              <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
+              <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+            </div>
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
