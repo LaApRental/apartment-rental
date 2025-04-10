@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   grad: String,
   mobitel: String,
   fiksni: String,
+  korisnikTip: String,
   role: { type: String, default: 'user' }
 });
 module.exports = mongoose.model('User', userSchema);
