@@ -120,7 +120,7 @@ export function RegisterNew() {
 
           <label className="flex items-start space-x-2 text-sm">
             <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
-            <span>Pročitao/la sam i slažem se s uvjetima i pravilima oglašavanja na hrvatska-apartmani.com katalozima.</span>
+            <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
           </label>
 
           <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
@@ -133,7 +133,7 @@ export function RegisterNew() {
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg text-center max-w-md">
             <h2 className="text-xl font-bold text-green-700 mb-2">Hvala vam što ste se registrirali.</h2>
-            <p className="text-gray-700 text-sm">Na Vašu e-mail adresu smo poslali poveznicu za aktiviranje računa i izradu lozinke.</p>
+            <p className="text-gray-700 text-sm">Na Vašu e-mail adresu smo poslali poveznicu za potvrdu računa.</p>
           </div>
         </div>
       )}
