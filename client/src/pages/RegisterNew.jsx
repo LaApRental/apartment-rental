@@ -28,7 +28,7 @@ export function RegisterNew() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch('https://apartment-rental.onrender.com/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
