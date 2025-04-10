@@ -64,47 +64,70 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2 */}
+          {/* Row 2: Always 6 columns */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {/* Column 1: Naziv tvrtke or blank */}
-            {userType === 'pravne' ? (
-              <input type="text" name="nazivTvrtke" value={formData.nazivTvrtke} onChange={handleChange} placeholder="Naziv tvrtke" className="p-2 border rounded" />
+            {userType === 'privatni' ? (
+              <input
+                type="text"
+                name="adresa"
+                value={formData.adresa}
+                onChange={handleChange}
+                placeholder="Adresa"
+                className="p-2 border rounded md:col-span-2"
+              />
             ) : (
-              <div />
-            )}
-
-            {/* Column 2: Adresa (spans 2 if privatni) */}
-            <input
-              type="text"
-              name="adresa"
-              value={formData.adresa}
-              onChange={handleChange}
-              placeholder="Adresa"
-              className={`p-2 border rounded ${userType === 'privatni' ? 'md:col-span-2 col-start-1' : ''}`}
-            />
-
-            {/* Column 3 (if privatni adresa spans 2, this slot gets skipped) */}
-            {userType === 'pravne' && (
-              <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-            )}
-            {userType === 'pravne' && (
-              <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-            )}
-            {userType === 'pravne' && (
-              <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-            )}
-            {userType === 'pravne' && (
-              <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
-            )}
-
-            {userType === 'privatni' && (
               <>
-                <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-                <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-                <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-                <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
+                <input
+                  type="text"
+                  name="nazivTvrtke"
+                  value={formData.nazivTvrtke}
+                  onChange={handleChange}
+                  placeholder="Naziv tvrtke"
+                  className="p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  name="adresa"
+                  value={formData.adresa}
+                  onChange={handleChange}
+                  placeholder="Adresa"
+                  className="p-2 border rounded"
+                />
               </>
             )}
+
+            <input
+              type="text"
+              name="postanskiBroj"
+              value={formData.postanskiBroj}
+              onChange={handleChange}
+              placeholder="Poštanski broj"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="grad"
+              value={formData.grad}
+              onChange={handleChange}
+              placeholder="Grad"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="mobitel"
+              value={formData.mobitel}
+              onChange={handleChange}
+              placeholder="Mobilni telefon"
+              className="p-2 border rounded"
+            />
+            <input
+              type="text"
+              name="fiksni"
+              value={formData.fiksni}
+              onChange={handleChange}
+              placeholder="Fiksni telefon"
+              className="p-2 border rounded"
+            />
           </div>
 
           <label className="flex items-start space-x-2 text-sm">
