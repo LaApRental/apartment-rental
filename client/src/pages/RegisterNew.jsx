@@ -29,13 +29,13 @@ export function RegisterNew() {
         <div className="flex justify-center space-x-4 mb-6">
           <button
             onClick={() => setUserType('privatni')}
-            className={\`px-4 py-2 rounded \${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'}\`}
+            className={`px-4 py-2 rounded ${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
           >
             Privatni korisnici
           </button>
           <button
             onClick={() => setUserType('pravne')}
-            className={\`px-4 py-2 rounded \${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'}\`}
+            className={`px-4 py-2 rounded ${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
           >
             Pravne osobe
           </button>
@@ -67,5 +67,3 @@ export function RegisterNew() {
     </div>
   );
 }
-
-// Trigger rebuild
