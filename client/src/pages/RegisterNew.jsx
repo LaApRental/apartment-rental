@@ -49,7 +49,7 @@ export function RegisterNew() {
         </div>
 
         <form className="space-y-6">
-          {/* Row 1 */}
+          {/* Row 1: 4 fields */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
             <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="p-2 border rounded" />
@@ -64,10 +64,9 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2 */}
+          {/* Row 2: 6 columns always filled */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {/* Only for Pravne */}
-            {userType === 'pravne' && (
+            {userType === 'pravne' ? (
               <input
                 type="text"
                 name="nazivTvrtke"
@@ -75,21 +74,11 @@ export function RegisterNew() {
                 onChange={handleChange}
                 placeholder="Naziv tvrtke"
                 className="p-2 border rounded"
-                id="cform_company"
               />
+            ) : (
+              <div className="p-2 invisible"></div>  // spacer
             )}
-            {/* Fake space to maintain grid if privatni */}
-            {userType === 'privatni' && <div className="hidden md:block"></div>}
-
-            <input
-              type="text"
-              name="adresa"
-              value={formData.adresa}
-              onChange={handleChange}
-              placeholder="Adresa"
-              id="address"
-              className={`p-2 border rounded ${userType === 'pravne' ? 'md:col-span-1' : 'md:col-span-2'}`}
-            />
+            <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="p-2 border rounded" />
             <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
             <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
