@@ -64,9 +64,10 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2: 6 columns, Adresa shifts left in privatni mode */}
+          {/* Row 2: fixed 6 columns total */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {userType === 'pravne' && (
+            {/* Column 1: Naziv tvrtke or empty spacer */}
+            {userType === 'pravne' ? (
               <input
                 type="text"
                 name="nazivTvrtke"
@@ -75,19 +76,21 @@ export function RegisterNew() {
                 placeholder="Naziv tvrtke"
                 className="p-2 border rounded"
               />
+            ) : (
+              <div className="hidden md:block" />
             )}
 
+            {/* Column 2-3: Adresa */}
             <input
               type="text"
               name="adresa"
               value={formData.adresa}
               onChange={handleChange}
               placeholder="Adresa"
-              className={`p-2 border rounded ${
-                userType === 'pravne' ? 'md:col-span-2' : 'md:col-span-3 col-start-1'
-              }`}
+              className="p-2 border rounded md:col-span-2"
             />
 
+            {/* Column 4: Postanski broj */}
             <input
               type="text"
               name="postanskiBroj"
@@ -96,6 +99,8 @@ export function RegisterNew() {
               placeholder="Poštanski broj"
               className="p-2 border rounded"
             />
+
+            {/* Column 5: Grad */}
             <input
               type="text"
               name="grad"
@@ -104,6 +109,8 @@ export function RegisterNew() {
               placeholder="Grad"
               className="p-2 border rounded"
             />
+
+            {/* Column 6: Mobitel */}
             <input
               type="text"
               name="mobitel"
@@ -112,6 +119,15 @@ export function RegisterNew() {
               placeholder="Mobilni telefon"
               className="p-2 border rounded"
             />
+          </div>
+
+          {/* Fiksni telefon in its own fixed spot */}
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
+            <div className="hidden md:block"></div>
             <input
               type="text"
               name="fiksni"
