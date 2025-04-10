@@ -7,6 +7,7 @@ export function RegisterNew() {
     prezime: '',
     email: '',
     oib: '',
+    nazivTvrtke: '',
     adresa: '',
     postanskiBroj: '',
     grad: '',
@@ -41,12 +42,25 @@ export function RegisterNew() {
           </button>
         </div>
 
-        {userType === 'privatni' && (
+        {(userType === 'privatni' || userType === 'pravne') && (
           <form className="space-y-4">
             <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="w-full p-2 border rounded" />
             <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="w-full p-2 border rounded" />
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-mail" className="w-full p-2 border rounded" />
-            <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB" className="w-full p-2 border rounded" />
+
+            {userType === 'privatni' && (
+              <>
+                <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB" className="w-full p-2 border rounded" />
+              </>
+            )}
+
+            {userType === 'pravne' && (
+              <>
+                <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB tvrtke" className="w-full p-2 border rounded" />
+                <input type="text" name="nazivTvrtke" value={formData.nazivTvrtke} onChange={handleChange} placeholder="Naziv tvrtke" className="w-full p-2 border rounded" />
+              </>
+            )}
+
             <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="w-full p-2 border rounded" />
             <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="w-full p-2 border rounded" />
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="w-full p-2 border rounded" />
@@ -55,11 +69,11 @@ export function RegisterNew() {
 
             <label className="flex items-start space-x-2 text-sm">
               <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
-              <span>Slažem se sa uvjetima korištenja kataloga.</span>
+              <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na hrvatska-apartmani.com katalozima.</span>
             </label>
 
             <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
-              Register
+              Registriraj se!
             </button>
           </form>
         )}
@@ -67,3 +81,4 @@ export function RegisterNew() {
     </div>
   );
 }
+
