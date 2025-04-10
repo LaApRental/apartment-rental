@@ -26,6 +26,15 @@ export function RegisterNew() {
 
   
 const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+  // ✅ Require terms acceptance before registering
+  if (!formData.prihvacamUvijete) {
+    alert("Molimo označite da se slažete s uvjetima.");
+    return;
+  }
+  
   e.preventDefault();
   try {
     const response = await fetch('https://apartment-rental.onrender.com/api/auth/register', {
