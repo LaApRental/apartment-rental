@@ -64,9 +64,9 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Row 2: fixed 6 columns total */}
+          {/* Row 2: 6 fixed grid columns */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {/* Column 1: Naziv tvrtke or empty spacer */}
+            {/* Column 1 */}
             {userType === 'pravne' ? (
               <input
                 type="text"
@@ -77,7 +77,7 @@ export function RegisterNew() {
                 className="p-2 border rounded"
               />
             ) : (
-              <div className="hidden md:block" />
+              <div className="p-2"></div>
             )}
 
             {/* Column 2-3: Adresa */}
@@ -90,7 +90,7 @@ export function RegisterNew() {
               className="p-2 border rounded md:col-span-2"
             />
 
-            {/* Column 4: Postanski broj */}
+            {/* Column 4 */}
             <input
               type="text"
               name="postanskiBroj"
@@ -100,7 +100,7 @@ export function RegisterNew() {
               className="p-2 border rounded"
             />
 
-            {/* Column 5: Grad */}
+            {/* Column 5 */}
             <input
               type="text"
               name="grad"
@@ -110,7 +110,7 @@ export function RegisterNew() {
               className="p-2 border rounded"
             />
 
-            {/* Column 6: Mobitel */}
+            {/* Column 6 */}
             <input
               type="text"
               name="mobitel"
@@ -121,13 +121,9 @@ export function RegisterNew() {
             />
           </div>
 
-          {/* Fiksni telefon in its own fixed spot */}
+          {/* Fiksni telefon - always below in its own line */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            <div className="hidden md:block"></div>
-            <div className="hidden md:block"></div>
-            <div className="hidden md:block"></div>
-            <div className="hidden md:block"></div>
-            <div className="hidden md:block"></div>
+            <div className="md:col-span-5 hidden md:block" />
             <input
               type="text"
               name="fiksni"
