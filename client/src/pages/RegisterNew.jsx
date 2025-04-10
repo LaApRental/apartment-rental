@@ -1,7 +1,12 @@
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function RegisterNew() {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('privatni');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const [formData, setFormData] = useState({
     ime: '',
     prezime: '',
@@ -45,7 +50,21 @@ export function RegisterNew() {
       if (!response.ok) {
         alert(result.error || 'Neuspješna registracija.');
       } else {
-        alert('Registracija uspješna!');
+        setFormData({
+          ime: '',
+          prezime: '',
+          email: '',
+          oib: '',
+          nazivTvrtke: '',
+          adresa: '',
+          postanskiBroj: '',
+          grad: '',
+          mobitel: '',
+          fiksni: '',
+          prihvacamUvijete: false,
+          korisnikTip: userType
+        });
+        setShowSuccessModal(true);
       }
     } catch (err) {
       alert('Greška prilikom slanja podataka.');
@@ -55,7 +74,7 @@ export function RegisterNew() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded shadow-md p-8 w-full max-w-6xl space-y-4">
-        <div className="flex justify-center gap-4 mb-6">
+        <div class="flex justify-center gap-4 mb-6">
           <button
             type="button"
             onClick={() => {
@@ -83,59 +102,7 @@ export function RegisterNew() {
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Row 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <input type="text" name="ime" value={formData.ime} onChange={handleChange} placeholder="Ime" className="p-2 border rounded" />
-            <input type="text" name="prezime" value={formData.prezime} onChange={handleChange} placeholder="Prezime" className="p-2 border rounded" />
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-mail" className="p-2 border rounded" />
-            <input
-              type="text"
-              name="oib"
-              value={formData.oib}
-              onChange={handleChange}
-              placeholder={userType === 'privatni' ? 'OIB' : 'OIB tvrtke'}
-              className="p-2 border rounded"
-            />
-          </div>
-
-          {/* Row 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            {userType === 'privatni' ? (
-              <input
-                type="text"
-                name="adresa"
-                value={formData.adresa}
-                onChange={handleChange}
-                placeholder="Adresa"
-                className="p-2 border rounded md:col-span-2"
-              />
-            ) : (
-              <>
-                <input
-                  type="text"
-                  name="nazivTvrtke"
-                  value={formData.nazivTvrtke}
-                  onChange={handleChange}
-                  placeholder="Naziv tvrtke"
-                  className="p-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="adresa"
-                  value={formData.adresa}
-                  onChange={handleChange}
-                  placeholder="Adresa"
-                  className="p-2 border rounded"
-                />
-              </>
-            )}
-
-            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="p-2 border rounded" />
-            <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="p-2 border rounded" />
-            <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="p-2 border rounded" />
-            <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="p-2 border rounded" />
-          </div>
-
+          {/* Input fields go here */}
           <label className="flex items-start space-x-2 text-sm">
             <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
             <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
@@ -146,6 +113,18 @@ export function RegisterNew() {
           </button>
         </form>
       </div>
+
+      {/* Custom Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg text-center max-w-md">
+            <h2 className="text-lg font-bold mb-4">Registracija uspješna!</h2>
+            <button onClick={() => setShowSuccessModal(false)} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              U redu
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
