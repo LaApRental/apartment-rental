@@ -48,14 +48,14 @@ export function RegisterNew() {
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-mail" className="w-full p-2 border rounded" />
             <input type="text" name="oib" value={formData.oib} onChange={handleChange} placeholder="OIB" className="w-full p-2 border rounded" />
             <input type="text" name="adresa" value={formData.adresa} onChange={handleChange} placeholder="Adresa" className="w-full p-2 border rounded" />
-            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Postanski broj" className="w-full p-2 border rounded" />
+            <input type="text" name="postanskiBroj" value={formData.postanskiBroj} onChange={handleChange} placeholder="Poštanski broj" className="w-full p-2 border rounded" />
             <input type="text" name="grad" value={formData.grad} onChange={handleChange} placeholder="Grad" className="w-full p-2 border rounded" />
             <input type="text" name="mobitel" value={formData.mobitel} onChange={handleChange} placeholder="Mobilni telefon" className="w-full p-2 border rounded" />
             <input type="text" name="fiksni" value={formData.fiksni} onChange={handleChange} placeholder="Fiksni telefon" className="w-full p-2 border rounded" />
 
             <label className="flex items-start space-x-2 text-sm">
               <input type="checkbox" name="prihvacamUvijete" checked={formData.prihvacamUvijete} onChange={handleChange} className="mt-1" />
-              <span>I have read and agree with the terms and conditions of Apartmanija.hr.</span>
+              <span>Slažem se sa uvjetima korištenja kataloga.</span>
             </label>
 
             <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
