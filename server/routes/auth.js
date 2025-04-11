@@ -94,7 +94,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Pogrešan e-mail ili račun nije aktiviran.' });
     }
 
-    const match = await bcrypt.compare(password, user.password);
+        if (!user.password) {
+          console.log('❌ User has no password set');
+          return res.status(400).json({ error: 'Račun nije ispravno kreiran. Kontaktirajte podršku.' });
+        }
+        
+        const match = await bcrypt.compare(password, user.password);
     if (!match) {
       console.log('❌ Password mismatch');
       return res.status(400).json({ error: 'Pogrešna lozinka.' });
