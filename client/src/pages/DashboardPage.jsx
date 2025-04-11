@@ -1,58 +1,60 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// src/pages/DashboardPage.jsx
+import React, { useState } from 'react';
 
 const DashboardPage = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* Top Bar */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Moja kontrolna ploča</h1>
-          <Link to="/logout" className="text-sm text-blue-600 hover:underline">Odjava</Link>
-        </div>
-      </header>
+  const [activeTab, setActiveTab] = useState('overview');
 
-      {/* Dashboard Content */}
-      <main className="max-w-7xl mx-auto p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card
-            to="/edit-listing"
-            title="Uređivanje oglasa"
-            description="Kliknite za uređivanje oglasa"
-            emoji="✏️"
-          />
-          <Card
-            to="/inquiries"
-            title="Pregled upita"
-            description="Kliknite za upravljanje upitima"
-            emoji="📨"
-          />
-          <Card
-            to="/comments"
-            title="Komentari gostiju"
-            description="Upravljajte komentarima gostiju"
-            emoji="💬"
-          />
-          <Card
-            to="/invite"
-            title="Pozovite prijatelja"
-            description="Ostvarite popuste dijeljenjem"
-            emoji="🎁"
-          />
-        </div>
+  const tabs = [
+    { key: 'overview', label: 'Pregled' },
+    { key: 'listings', label: 'Moji Oglasi' },
+    { key: 'inquiries', label: 'Upiti' },
+    { key: 'comments', label: 'Komentari' },
+    { key: 'invite', label: 'Pozovi prijatelja' }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white shadow-md border-r">
+        <div className="p-6 font-bold text-lg">Korisnički Panel</div>
+        <nav className="space-y-1">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`w-full text-left px-6 py-3 hover:bg-gray-100 ${
+                activeTab === tab.key ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-gray-700'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 p-8">
+        {activeTab === 'overview' && <Overview />}
+        {activeTab === 'listings' && <Listings />}
+        {activeTab === 'inquiries' && <Inquiries />}
+        {activeTab === 'comments' && <Comments />}
+        {activeTab === 'invite' && <Invite />}
       </main>
     </div>
   );
 };
 
-const Card = ({ to, title, description, emoji }) => (
-  <Link to={to} className="transform hover:scale-105 transition-transform">
-    <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-      <div className="text-3xl mb-2">{emoji}</div>
-      <h2 className="text-lg font-semibold mb-1">{title}</h2>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
-  </Link>
+// Dummy content components (we’ll improve each next)
+const Overview = () => (
+  <div>
+    <h2 className="text-2xl font-bold mb-4">Dobrodošli natrag 👋</h2>
+    <p className="text-gray-600">Ovdje možete pregledati sažetak svog računa.</p>
+  </div>
 );
+
+const Listings = () => <div>📝 Ovdje će biti vaši oglasi.</div>;
+const Inquiries = () => <div>📩 Ovdje pregledavate upite.</div>;
+const Comments = () => <div>💬 Ovdje su komentari gostiju.</div>;
+const Invite = () => <div>🎁 Pozovite prijatelje i ostvarite pogodnosti.</div>;
 
 export default DashboardPage;
