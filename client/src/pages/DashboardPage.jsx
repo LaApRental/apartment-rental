@@ -1,4 +1,3 @@
-// pages/DashboardPage.jsx
 import React, { useState } from 'react';
 
 const tabs = [
@@ -24,13 +23,13 @@ const DashboardPage = () => {
           </div>
         );
       case 'listings':
-        return <div>Vaši oglasi će biti ovdje...</div>;
+        return <TabContent title="Oglasi" />;
       case 'inquiries':
-        return <div>Upiti korisnika...</div>;
+        return <TabContent title="Upiti" />;
       case 'comments':
-        return <div>Komentari gostiju...</div>;
+        return <TabContent title="Komentari gostiju" />;
       case 'invite':
-        return <div>Link za pozivanje prijatelja...</div>;
+        return <TabContent title="Pozovi prijatelja" />;
       default:
         return null;
     }
@@ -57,7 +56,7 @@ const DashboardPage = () => {
           ))}
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+        <div className="bg-white rounded-lg shadow p-6">
           {renderContent()}
         </div>
       </div>
@@ -65,10 +64,19 @@ const DashboardPage = () => {
   );
 };
 
+// ✅ Reusable card component
 const Card = ({ title, text }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition cursor-pointer">
-    <h2 className="text-lg font-semibold mb-1">{title}</h2>
+  <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition">
+    <h2 className="text-lg font-semibold mb-2">{title}</h2>
     <p className="text-sm text-gray-600">{text}</p>
+  </div>
+);
+
+// ✅ Placeholder for tabs other than overview
+const TabContent = ({ title }) => (
+  <div>
+    <h2 className="text-xl font-semibold mb-4">{title}</h2>
+    <p className="text-gray-600">Ovdje će ići sadržaj za {title.toLowerCase()}.</p>
   </div>
 );
 
