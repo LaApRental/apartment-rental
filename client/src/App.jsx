@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { LoginPage } from './pages/LoginPage';
-import { RegisterNew } from './pages/RegisterNew';
+import RegisterNew from './pages/RegisterNew'; // ✅ correct for default export
 
 export default function App() {
   return (
