@@ -1,91 +1,52 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Overview from './DashboardTabs/Overview';
+import Listings from './DashboardTabs/Listings';
+import Inquiries from './DashboardTabs/Inquiries';
+import Comments from './DashboardTabs/Comments';
+import InviteFriend from './DashboardTabs/InviteFriend';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('oglasi');
+  const [activeTab, setActiveTab] = useState('overview');
 
-  const renderTabContent = () => {
+  const renderTab = () => {
     switch (activeTab) {
-      case 'oglasi':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link to="/edit-listing">
-              <div className="bg-yellow-300 rounded-lg p-6 shadow hover:shadow-lg transition">
-                <h2 className="text-xl font-semibold mb-2">✏️ Uređivanje oglasa</h2>
-                <p>Kliknite za uređivanje oglasa</p>
-              </div>
-            </Link>
-          </div>
-        );
-      case 'upiti':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link to="/inquiries">
-              <div className="bg-blue-300 rounded-lg p-6 shadow hover:shadow-lg transition">
-                <h2 className="text-xl font-semibold mb-2">📨 Pregled upita</h2>
-                <p>Kliknite za upravljanje svim upitima</p>
-              </div>
-            </Link>
-          </div>
-        );
-      case 'komentari':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link to="/comments">
-              <div className="bg-green-300 rounded-lg p-6 shadow hover:shadow-lg transition">
-                <h2 className="text-xl font-semibold mb-2">💬 Komentari gostiju</h2>
-                <p>Kliknite za upravljanje komentarima gostiju</p>
-              </div>
-            </Link>
-          </div>
-        );
-      case 'prijatelji':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link to="/invite">
-              <div className="bg-pink-300 rounded-lg p-6 shadow hover:shadow-lg transition">
-                <h2 className="text-xl font-semibold mb-2">🎁 Pozovite prijatelja</h2>
-                <p>Ostvarite popuste dijeljenjem</p>
-              </div>
-            </Link>
-          </div>
-        );
-      default:
-        return null;
+      case 'overview': return <Overview />;
+      case 'listings': return <Listings />;
+      case 'inquiries': return <Inquiries />;
+      case 'comments': return <Comments />;
+      case 'invite': return <InviteFriend />;
+      default: return <Overview />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex space-x-4 mb-6">
-          <button
-            onClick={() => setActiveTab('oglasi')}
-            className={`px-4 py-2 rounded-t ${activeTab === 'oglasi' ? 'bg-white shadow font-bold' : 'bg-gray-300'}`}
-          >
-            Oglasi
-          </button>
-          <button
-            onClick={() => setActiveTab('upiti')}
-            className={`px-4 py-2 rounded-t ${activeTab === 'upiti' ? 'bg-white shadow font-bold' : 'bg-gray-300'}`}
-          >
-            Upiti
-          </button>
-          <button
-            onClick={() => setActiveTab('komentari')}
-            className={`px-4 py-2 rounded-t ${activeTab === 'komentari' ? 'bg-white shadow font-bold' : 'bg-gray-300'}`}
-          >
-            Komentari
-          </button>
-          <button
-            onClick={() => setActiveTab('prijatelji')}
-            className={`px-4 py-2 rounded-t ${activeTab === 'prijatelji' ? 'bg-white shadow font-bold' : 'bg-gray-300'}`}
-          >
-            Pozovi prijatelja
-          </button>
+        <h1 className="text-2xl font-bold mb-6">👤 Dobrodošli u korisnički panel</h1>
+
+        <div className="flex space-x-4 mb-4 border-b pb-2">
+          {[
+            { id: 'overview', label: '📊 Početna' },
+            { id: 'listings', label: '🏡 Oglasi' },
+            { id: 'inquiries', label: '📨 Upiti' },
+            { id: 'comments', label: '💬 Komentari' },
+            { id: 'invite', label: '🎁 Pozovi prijatelja' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-t ${
+                activeTab === tab.id
+                  ? 'bg-white border-b-2 border-blue-600 font-semibold text-blue-600'
+                  : 'text-gray-500 hover:text-blue-500'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        <div className="bg-white p-6 rounded shadow">{renderTabContent()}</div>
+        <div className="bg-white p-6 rounded shadow">{renderTab()}</div>
       </div>
     </div>
   );
