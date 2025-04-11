@@ -20,6 +20,7 @@ const RegisterNew = () => {
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
   const [showAgreeError, setShowAgreeError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -91,7 +92,6 @@ const RegisterNew = () => {
       if (!response.ok) {
         alert(result.error || 'Registracija nije uspjela.');
       } else {
-        alert('Registracija uspješna!');
         setFormData({
           ime: '',
           prezime: '',
@@ -106,7 +106,7 @@ const RegisterNew = () => {
           korisnikTip: userType
         });
         setAgree(false);
-        navigate('/login');
+        setShowSuccess(true);
       }
     } catch (err) {
       alert('Greška na klijentu.');
@@ -176,16 +176,16 @@ const RegisterNew = () => {
 
           <div className="flex flex-col text-sm">
             <label className="flex items-start space-x-2">
-                <input
-                  type="checkbox"
-                  name="prihvacamUvijete"
-                  checked={agree}
-                  onChange={(e) => {
-                    setAgree(e.target.checked);
-                    setShowAgreeError(false);
-                  }}
-                  className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
-                />
+              <input
+                type="checkbox"
+                name="prihvacamUvijete"
+                checked={agree}
+                onChange={(e) => {
+                  setAgree(e.target.checked);
+                  setShowAgreeError(false);
+                }}
+                className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
+              />
               <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
             </label>
           </div>
@@ -197,6 +197,14 @@ const RegisterNew = () => {
             Registriraj se!
           </button>
         </form>
+
+        {showSuccess && (
+          <div className="bg-green-100 border border-green-400 text-green-700 p-4 rounded text-sm mt-4">
+            Hvala vam! Poslali smo vam e-mail za aktivaciju računa.
+            <br />
+            Otvorite poveznicu u e-mailu kako biste postavili lozinku i aktivirali račun.
+          </div>
+        )}
       </div>
     </div>
   );
