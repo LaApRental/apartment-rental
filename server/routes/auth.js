@@ -42,4 +42,37 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.post('/activate', async (req, res) => {
+  const { token, password } = req.body;
+
+  if (!token || !password) {
+    return res.status(400).json({ error: 'Nedostaje token ili lozinka.' });
+  }
+
+  try {
+    const user = await User.findOne({
+      activationToken: token,
+      activationExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Token nije valjan ili je istekao.' });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    user.password = hashed;
+    user.activated = true;
+    user.activationToken = undefined;
+    user.activationExpires = undefined;
+
+    await user.save();
+
+    res.json({ message: 'Račun je uspješno aktiviran.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Greška na serveru.' });
+  }
+});
+
 module.exports = router;
