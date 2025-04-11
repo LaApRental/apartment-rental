@@ -176,13 +176,16 @@ const RegisterNew = () => {
 
           <div className="flex flex-col text-sm">
             <label className="flex items-start space-x-2">
-              <input
-                type="checkbox"
-                name="prihvacamUvijete"
-                checked={agree}
-                onChange={handleChange}
-                className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
-              />
+                <input
+                  type="checkbox"
+                  name="prihvacamUvijete"
+                  checked={agree}
+                  onChange={(e) => {
+                    setAgree(e.target.checked);
+                    setShowAgreeError(false);
+                  }}
+                  className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
+                />
               <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
             </label>
           </div>
