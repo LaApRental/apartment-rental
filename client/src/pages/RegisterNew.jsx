@@ -51,7 +51,7 @@ const RegisterNew = () => {
 
     requiredFields.forEach((field) => {
       if (!formData[field]) {
-        newErrors[field] = 'Obavezno polje';
+        newErrors[field] = true;
       }
     });
 
@@ -109,7 +109,6 @@ const RegisterNew = () => {
         placeholder={placeholder}
         className={`p-2 border rounded ${errors[name] ? 'border-red-500' : ''}`}
       />
-      {errors[name] && <span className="text-sm text-red-600">{errors[name]}</span>}
     </div>
   );
 
