@@ -17,25 +17,32 @@ export function LoginPage() {
     }
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('https://apartment-rental.onrender.com/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const result = await res.json();
-      if (!res.ok) return alert(result.error || 'Neuspješna prijava.');
-
-      alert('Uspješna prijava!');
-      // redirect or save token here
-      navigate('/dashboard');
-    } catch (err) {
-      alert('Greška na mreži.');
-    }
-  };
+          const handleLogin = async (e) => {
+            e.preventDefault();
+            try {
+              const res = await fetch('https://apartment-rental.onrender.com/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+              });
+          
+              const result = await res.json();
+          
+              if (!res.ok) {
+                console.error('❌ Login failed:', result);
+                return alert(result.error || 'Neuspješna prijava.');
+              }
+          
+              console.log('✅ Login successful. Redirecting to dashboard...');
+              localStorage.setItem('user', JSON.stringify(result.user || { email }));
+              alert('Uspješna prijava!');
+              navigate('/dashboard');
+          
+            } catch (err) {
+              console.error('💥 Network or redirect error:', err);
+              alert('Greška na mreži!');
+            }
+          };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
