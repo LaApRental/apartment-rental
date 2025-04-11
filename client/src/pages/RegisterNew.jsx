@@ -19,6 +19,7 @@ const RegisterNew = () => {
   });
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showAgreeError, setShowAgreeError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,7 +27,18 @@ const RegisterNew = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    setErrors((prev) => ({ ...prev, [name]: '' }));
+    setErrors((prev) => ({ ...prev, [name]: false }));
+  };
+
+  const resetFieldErrors = () => {
+    setErrors({});
+    setShowAgreeError(false);
+  };
+
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+    setFormData((prev) => ({ ...prev, korisnikTip: type }));
+    resetFieldErrors();
   };
 
   const handleSubmit = async (e) => {
@@ -56,7 +68,7 @@ const RegisterNew = () => {
     });
 
     if (!agree) {
-      alert('Morate prihvatiti uvjete korištenja.');
+      setShowAgreeError(true);
       return;
     }
 
@@ -118,10 +130,7 @@ const RegisterNew = () => {
         <div className="flex justify-center gap-4 mb-6">
           <button
             type="button"
-            onClick={() => {
-              setUserType('privatni');
-              setFormData((prev) => ({ ...prev, korisnikTip: 'privatni' }));
-            }}
+            onClick={() => handleUserTypeChange('privatni')}
             className={`flex-1 px-4 py-2 rounded border font-medium ${
               userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
             }`}
@@ -131,10 +140,7 @@ const RegisterNew = () => {
 
           <button
             type="button"
-            onClick={() => {
-              setUserType('pravne');
-              setFormData((prev) => ({ ...prev, korisnikTip: 'pravne' }));
-            }}
+            onClick={() => handleUserTypeChange('pravne')}
             className={`flex-1 px-4 py-2 rounded border font-medium ${
               userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
             }`}
@@ -166,16 +172,18 @@ const RegisterNew = () => {
             {renderInput('fiksni', 'Fiksni telefon')}
           </div>
 
-          <label className="flex items-start space-x-2 text-sm">
-            <input
-              type="checkbox"
-              name="prihvacamUvijete"
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
-              className="mt-1"
-            />
-            <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
-          </label>
+          <div className="flex flex-col text-sm">
+            <label className="flex items-start space-x-2">
+              <input
+                type="checkbox"
+                name="prihvacamUvijete"
+                checked={agree}
+                onChange={(e) => setAgree(e.target.checked)}
+                className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
+              />
+              <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
+            </label>
+          </div>
 
           <button
             type="submit"
