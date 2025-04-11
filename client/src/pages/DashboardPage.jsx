@@ -1,60 +1,51 @@
-// src/pages/DashboardPage.jsx
 import React, { useState } from 'react';
 
-const DashboardPage = () => {
+const tabs = [
+  { id: 'overview', label: 'Početna' },
+  { id: 'listings', label: 'Oglasi' },
+  { id: 'inquiries', label: 'Upiti' },
+  { id: 'comments', label: 'Komentari' },
+  { id: 'invite', label: 'Pozovi prijatelja' },
+];
+
+export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
-  const tabs = [
-    { key: 'overview', label: 'Pregled' },
-    { key: 'listings', label: 'Moji Oglasi' },
-    { key: 'inquiries', label: 'Upiti' },
-    { key: 'comments', label: 'Komentari' },
-    { key: 'invite', label: 'Pozovi prijatelja' }
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md border-r">
-        <div className="p-6 font-bold text-lg">Korisnički Panel</div>
-        <nav className="space-y-1">
-          {tabs.map((tab) => (
+    <div className="min-h-screen bg-gray-50 text-gray-800">
+      {/* Header */}
+      <div className="bg-white shadow-md p-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Korisnički panel</h1>
+        <div className="text-sm text-gray-500">Dobrodošli natrag!</div>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="bg-gray-100 p-4 border-b">
+        <div className="flex gap-4 overflow-x-auto">
+          {tabs.map(tab => (
             <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`w-full text-left px-6 py-3 hover:bg-gray-100 ${
-                activeTab === tab.key ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-gray-700'
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-lg font-medium transition ${
+                activeTab === tab.id
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white border text-gray-700 hover:bg-gray-50'
               }`}
             >
               {tab.label}
             </button>
           ))}
-        </nav>
-      </aside>
+        </div>
+      </div>
 
-      {/* Main content */}
-      <main className="flex-1 p-8">
-        {activeTab === 'overview' && <Overview />}
-        {activeTab === 'listings' && <Listings />}
-        {activeTab === 'inquiries' && <Inquiries />}
-        {activeTab === 'comments' && <Comments />}
-        {activeTab === 'invite' && <Invite />}
-      </main>
+      {/* Main Content */}
+      <div className="p-6">
+        {activeTab === 'overview' && <p>Dobrodošli u korisnički panel. Ovdje možete upravljati svojim oglasima.</p>}
+        {activeTab === 'listings' && <p>Ovdje će biti prikazani vaši oglasi.</p>}
+        {activeTab === 'inquiries' && <p>Svi vaši upiti gostiju bit će ovdje.</p>}
+        {activeTab === 'comments' && <p>Pregledajte komentare svojih gostiju.</p>}
+        {activeTab === 'invite' && <p>Pošaljite pozivnicu prijateljima i ostvarite popuste!</p>}
+      </div>
     </div>
   );
-};
-
-// Dummy content components (we’ll improve each next)
-const Overview = () => (
-  <div>
-    <h2 className="text-2xl font-bold mb-4">Dobrodošli natrag 👋</h2>
-    <p className="text-gray-600">Ovdje možete pregledati sažetak svog računa.</p>
-  </div>
-);
-
-const Listings = () => <div>📝 Ovdje će biti vaši oglasi.</div>;
-const Inquiries = () => <div>📩 Ovdje pregledavate upite.</div>;
-const Comments = () => <div>💬 Ovdje su komentari gostiju.</div>;
-const Invite = () => <div>🎁 Pozovite prijatelje i ostvarite pogodnosti.</div>;
-
-export default DashboardPage;
+}
