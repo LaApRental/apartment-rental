@@ -20,7 +20,6 @@ const RegisterNew = () => {
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
   const [showAgreeError, setShowAgreeError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -34,22 +33,15 @@ const RegisterNew = () => {
     }
   };
 
-  const resetFieldErrors = () => {
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+    setFormData((prev) => ({ ...prev, korisnikTip: type }));
     setErrors({});
     setShowAgreeError(false);
   };
 
-  const handleUserTypeChange = (type) => {
-    setUserType(type);
-    setFormData((prev) => ({ ...prev, korisnikTip: type }));
-    resetFieldErrors();
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const isPrivatni = userType === 'privatni';
-    const isPravne = userType === 'pravne';
 
     const requiredFields = [
       'ime',
@@ -60,25 +52,18 @@ const RegisterNew = () => {
       'postanskiBroj',
       'grad',
       'mobilni',
-      ...(isPravne ? ['nazivTvrtke'] : [])
+      ...(userType === 'pravne' ? ['nazivTvrtke'] : [])
     ];
 
     const newErrors = {};
     requiredFields.forEach((field) => {
-      if (!formData[field]) {
-        newErrors[field] = true;
-      }
+      if (!formData[field]) newErrors[field] = true;
     });
 
-    if (!agree) {
-      setShowAgreeError(true);
-    }
-
+    if (!agree) setShowAgreeError(true);
     setErrors(newErrors);
 
-    if (!agree || Object.keys(newErrors).length > 0) {
-      return;
-    }
+    if (!agree || Object.keys(newErrors).length > 0) return;
 
     try {
       const response = await fetch('https://apartment-rental.onrender.com/api/auth/register', {
@@ -92,21 +77,11 @@ const RegisterNew = () => {
       if (!response.ok) {
         alert(result.error || 'Registracija nije uspjela.');
       } else {
-        setFormData({
-          ime: '',
-          prezime: '',
-          email: '',
-          oib: '',
-          nazivTvrtke: '',
-          adresa: '',
-          postanskiBroj: '',
-          grad: '',
-          mobilni: '',
-          fiksni: '',
-          korisnikTip: userType
-        });
-        setAgree(false);
-        setShowSuccess(true);
+        localStorage.setItem('registrationSuccess', JSON.stringify({
+          ime: formData.ime,
+          prezime: formData.prezime
+        }));
+        navigate('/login');
       }
     } catch (err) {
       alert('Greška na klijentu.');
@@ -133,19 +108,14 @@ const RegisterNew = () => {
           <button
             type="button"
             onClick={() => handleUserTypeChange('privatni')}
-            className={`flex-1 px-4 py-2 rounded border font-medium ${
-              userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-            }`}
+            className={`flex-1 px-4 py-2 rounded border font-medium ${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             Privatni korisnici
           </button>
-
           <button
             type="button"
             onClick={() => handleUserTypeChange('pravne')}
-            className={`flex-1 px-4 py-2 rounded border font-medium ${
-              userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-            }`}
+            className={`flex-1 px-4 py-2 rounded border font-medium ${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             Pravne osobe
           </button>
@@ -190,21 +160,10 @@ const RegisterNew = () => {
             </label>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
-          >
+          <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
             Registriraj se!
           </button>
         </form>
-
-        {showSuccess && (
-          <div className="bg-green-100 border border-green-400 text-green-700 p-4 rounded text-sm mt-4">
-            Hvala vam! Poslali smo vam e-mail za aktivaciju računa.
-            <br />
-            Otvorite poveznicu u e-mailu kako biste postavili lozinku i aktivirali račun.
-          </div>
-        )}
       </div>
     </div>
   );
