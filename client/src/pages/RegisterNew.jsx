@@ -28,6 +28,9 @@ const RegisterNew = () => {
       [name]: type === 'checkbox' ? checked : value
     }));
     setErrors((prev) => ({ ...prev, [name]: false }));
+    if (name === 'prihvacamUvijete') {
+      setShowAgreeError(false);
+    }
   };
 
   const resetFieldErrors = () => {
@@ -47,8 +50,6 @@ const RegisterNew = () => {
     const isPrivatni = userType === 'privatni';
     const isPravne = userType === 'pravne';
 
-    let newErrors = {};
-
     const requiredFields = [
       'ime',
       'prezime',
@@ -61,6 +62,7 @@ const RegisterNew = () => {
       ...(isPravne ? ['nazivTvrtke'] : [])
     ];
 
+    const newErrors = {};
     requiredFields.forEach((field) => {
       if (!formData[field]) {
         newErrors[field] = true;
@@ -69,11 +71,11 @@ const RegisterNew = () => {
 
     if (!agree) {
       setShowAgreeError(true);
-      return;
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    setErrors(newErrors);
+
+    if (!agree || Object.keys(newErrors).length > 0) {
       return;
     }
 
@@ -178,7 +180,7 @@ const RegisterNew = () => {
                 type="checkbox"
                 name="prihvacamUvijete"
                 checked={agree}
-                onChange={(e) => setAgree(e.target.checked)}
+                onChange={handleChange}
                 className={`mt-1 ${showAgreeError ? 'ring-2 ring-red-500' : ''}`}
               />
               <span>Pročitao/la sam i slažem se s uvijetima i pravilima oglašavanja na _____________ katalozima.</span>
