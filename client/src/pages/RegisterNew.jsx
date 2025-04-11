@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function RegisterPage() {
+const RegisterPage = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('privatni');
   const [formData, setFormData] = useState({
@@ -104,4 +104,6 @@ export function RegisterPage() {
       </form>
     </div>
   );
-}
+};
+
+export default RegisterPage;
