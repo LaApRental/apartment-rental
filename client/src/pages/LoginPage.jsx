@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -29,6 +31,7 @@ export function LoginPage() {
 
       alert('Uspješna prijava!');
       // redirect or save token here
+      navigate('/dashboard');
     } catch (err) {
       alert('Greška na mreži.');
     }
