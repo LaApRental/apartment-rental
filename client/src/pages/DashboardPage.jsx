@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const tabs = [
   { key: 'overview', label: 'Početna' },
@@ -11,27 +12,50 @@ const tabs = [
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
+  const renderOverview = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <Link to="#" onClick={() => setActiveTab('listings')}>
+        <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition cursor-pointer">
+          <h2 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h2>
+          <p className="text-sm text-gray-600">Kliknite za uređivanje svojih oglasa.</p>
+        </div>
+      </Link>
+
+      <Link to="#" onClick={() => setActiveTab('inquiries')}>
+        <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition cursor-pointer">
+          <h2 className="text-lg font-semibold mb-2">📨 Pregled upita</h2>
+          <p className="text-sm text-gray-600">Upravljajte upitima svojih gostiju.</p>
+        </div>
+      </Link>
+
+      <Link to="#" onClick={() => setActiveTab('comments')}>
+        <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition cursor-pointer">
+          <h2 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h2>
+          <p className="text-sm text-gray-600">Odgovorite na komentare i recenzije.</p>
+        </div>
+      </Link>
+
+      <Link to="#" onClick={() => setActiveTab('invite')}>
+        <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition cursor-pointer">
+          <h2 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h2>
+          <p className="text-sm text-gray-600">Zaradite popuste pozivom prijatelja.</p>
+        </div>
+      </Link>
+    </div>
+  );
+
   const renderContent = () => {
     switch (activeTab) {
-      case 'overview':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card title="✏️ Uređivanje oglasa" text="Kliknite za uređivanje svojih oglasa." />
-            <Card title="📨 Pregled upita" text="Upravljajte svim upitima svojih gostiju." />
-            <Card title="💬 Komentari gostiju" text="Pogledajte i odgovorite na komentare gostiju." />
-            <Card title="🎁 Pozovite prijatelja" text="Preporučite nas i ostvarite popuste!" />
-          </div>
-        );
       case 'listings':
-        return <TabContent title="Oglasi" />;
+        return <div>📝 Ovdje dolazi popis i uređivanje oglasa.</div>;
       case 'inquiries':
-        return <TabContent title="Upiti" />;
+        return <div>📬 Ovdje su svi vaši upiti.</div>;
       case 'comments':
-        return <TabContent title="Komentari gostiju" />;
+        return <div>💬 Ovdje možete pregledavati i odgovarati na komentare.</div>;
       case 'invite':
-        return <TabContent title="Pozovi prijatelja" />;
+        return <div>🎉 Podijelite svoj referral link i ostvarite popuste!</div>;
       default:
-        return null;
+        return renderOverview();
     }
   };
 
@@ -56,28 +80,10 @@ const DashboardPage = () => {
           ))}
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          {renderContent()}
-        </div>
+        <div className="bg-white rounded-lg shadow p-6">{renderContent()}</div>
       </div>
     </div>
   );
 };
-
-// ✅ Reusable card component
-const Card = ({ title, text }) => (
-  <div className="bg-white rounded-lg shadow hover:shadow-md p-5 transition">
-    <h2 className="text-lg font-semibold mb-2">{title}</h2>
-    <p className="text-sm text-gray-600">{text}</p>
-  </div>
-);
-
-// ✅ Placeholder for tabs other than overview
-const TabContent = ({ title }) => (
-  <div>
-    <h2 className="text-xl font-semibold mb-4">{title}</h2>
-    <p className="text-gray-600">Ovdje će ići sadržaj za {title.toLowerCase()}.</p>
-  </div>
-);
 
 export default DashboardPage;
