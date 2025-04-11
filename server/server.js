@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 
 const express = require('express');
@@ -14,7 +15,21 @@ mongoose.connect(process.env.MONGO_URL, {
 }).then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-app.use(cors());
+const allowedOrigins = ['https://www.hrvatska-apartmani.com', 'http://localhost:3000'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+
 app.use(express.json()); // ✅ Needed
 app.use(bodyParser.json());
 app.use(fileUpload());
