@@ -83,23 +83,27 @@ Vaša Hrvatska-apartmani.com
   }
 });
 
-// ✅ LOGIN USER
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log('🔐 Login attempt:', email);
 
   try {
     const user = await User.findOne({ email });
     if (!user || !user.activated) {
+      console.log('❌ User not found or not activated');
       return res.status(400).json({ error: 'Pogrešan e-mail ili račun nije aktiviran.' });
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
+      console.log('❌ Password mismatch');
       return res.status(400).json({ error: 'Pogrešna lozinka.' });
     }
 
+    console.log('✅ Login success for', user.email);
     res.json({ message: 'Uspješna prijava!' });
   } catch (err) {
+    console.error('💥 Server error in /login:', err);
     res.status(500).json({ error: 'Greška na serveru.' });
   }
 });
