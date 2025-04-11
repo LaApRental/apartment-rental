@@ -69,30 +69,36 @@ export function RegisterNew() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white rounded shadow-md p-8 w-full max-w-6xl space-y-4">
-        <div className="flex justify-center gap-4 mb-6">
-          <button
-            type="button"
-            onClick={() => {
-              setUserType('privatni');
-              setFormData((prev) => ({ ...prev, korisnikTip: 'privatni' }));
-            }}
-            className={`flex-1 px-4 py-2 rounded border \${userType === 'privatni' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-          >
-            Privatni korisnici
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setUserType('pravne');
-              setFormData((prev) => ({ ...prev, korisnikTip: 'pravne' }));
-            }}
-            className={`flex-1 px-4 py-2 rounded border \${userType === 'pravne' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-          >
-            Pravne osobe
-          </button>
-        </div>
+<div className="flex justify-center gap-4 mb-6">
+  <button
+    type="button"
+    onClick={() => {
+      setUserType('privatni');
+      setFormData((prev) => ({ ...prev, korisnikTip: 'privatni' }));
+    }}
+    className={
+      userType === 'privatni'
+        ? 'flex-1 px-4 py-2 rounded border bg-blue-600 text-white font-semibold'
+        : 'flex-1 px-4 py-2 rounded border bg-white text-gray-800 border-gray-300 font-medium'
+    }
+  >
+    Privatni korisnici
+  </button>
+  <button
+    type="button"
+    onClick={() => {
+      setUserType('pravne');
+      setFormData((prev) => ({ ...prev, korisnikTip: 'pravne' }));
+    }}
+    className={
+      userType === 'pravne'
+        ? 'flex-1 px-4 py-2 rounded border bg-blue-600 text-white font-semibold'
+        : 'flex-1 px-4 py-2 rounded border bg-white text-gray-800 border-gray-300 font-medium'
+    }
+  >
+    Pravne osobe
+  </button>
+</div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
