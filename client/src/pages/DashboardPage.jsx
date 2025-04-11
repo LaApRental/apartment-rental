@@ -1,48 +1,59 @@
+// pages/DashboardPage.jsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const tabs = [
-  { name: 'Pregled', href: '/dashboard' },
-  { name: 'Oglasi', href: '/dashboard/listings' },
-  { name: 'Upiti', href: '/dashboard/inquiries' },
-  { name: 'Komentari', href: '/dashboard/comments' },
-  { name: 'Pozovi prijatelja', href: '/dashboard/invite' }
+  { key: 'overview', label: 'Početna' },
+  { key: 'listings', label: 'Oglasi' },
+  { key: 'inquiries', label: 'Upiti' },
+  { key: 'comments', label: 'Komentari' },
+  { key: 'invite', label: 'Pozovi prijatelja' }
 ];
 
 const DashboardPage = () => {
-  const [activeTab, setActiveTab] = useState('Pregled');
+  const [activeTab, setActiveTab] = useState('overview');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'overview':
+        return <div className="p-4">Dobrodošli u korisnički panel!</div>;
+      case 'listings':
+        return <div className="p-4">Ovdje će biti prikaz Vaših oglasa.</div>;
+      case 'inquiries':
+        return <div className="p-4">Svi pristigli upiti gostiju.</div>;
+      case 'comments':
+        return <div className="p-4">Komentari gostiju o vašim oglasima.</div>;
+      case 'invite':
+        return <div className="p-4">Pozovite prijatelja i zaradite popuste.</div>;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold tracking-tight">Korisnički panel</h1>
-          <Link to="/logout" className="text-blue-600 hover:underline text-sm">Odjava</Link>
-        </div>
-        <nav className="border-t border-gray-200 mt-2">
-          <div className="max-w-7xl mx-auto flex space-x-4 px-6">
-            {tabs.map((tab) => (
-              <button
-                key={tab.name}
-                onClick={() => setActiveTab(tab.name)}
-                className={`py-2 px-3 text-sm font-medium ${
-                  activeTab === tab.name ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600 hover:text-blue-600'
-                }`}
-              >
-                {tab.name}
-              </button>
-            ))}
-          </div>
-        </nav>
-      </header>
+    <div className="min-h-screen bg-[#f7f7f7] p-6 font-sans">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Korisnički panel</h1>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Dobrodošli natrag!</h2>
-          <p>Ovdje možete upravljati svojim oglasima, vidjeti upite i komentare gostiju.</p>
-          {/* 🔁 We'll swap this content dynamically later based on activeTab */}
+        <div className="flex space-x-4 border-b mb-6">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`py-2 px-4 border-b-2 transition-all ${
+                activeTab === tab.key
+                  ? 'border-black font-semibold text-black'
+                  : 'border-transparent text-gray-500 hover:text-black'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </main>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          {renderContent()}
+        </div>
+      </div>
     </div>
   );
 };
