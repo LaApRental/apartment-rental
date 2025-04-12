@@ -10,6 +10,7 @@ import {
   FaSignOutAlt
 } from 'react-icons/fa';
 
+
 const tabs = [
   { key: 'overview', label: 'Početna', icon: <FaHome /> },
   { key: 'listings', label: 'Oglasi', icon: <FaListAlt /> },
@@ -23,6 +24,7 @@ const DashboardPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   // Auto-close dropdown when clicked outside
   useEffect(() => {
@@ -34,6 +36,21 @@ const DashboardPage = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+ 
+  
+  // Close mobile sidebar on outside click
+useEffect(() => {
+  const handleSidebarClickOutside = (e) => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      setSidebarOpen(false);
+    }
+  };
+  document.addEventListener('mousedown', handleSidebarClickOutside);
+  return () => document.removeEventListener('mousedown', handleSidebarClickOutside);
+}, []);
+  
+
 
   const renderContent = () => {
     switch (activeTab) {
