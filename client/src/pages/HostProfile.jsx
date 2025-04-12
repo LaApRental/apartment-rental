@@ -67,75 +67,77 @@ const HostProfile = () => {
     return `${base} bg-white text-gray-700 hover:bg-gray-100`;
   };
 
-  return (
+return (
   <div className="bg-white shadow rounded-lg p-4 sm:p-6 my-6">
-        <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
-        <p className="text-sm text-gray-500 mb-6">
-          Unesite osobne podatke i opis koji će biti prikazan gostima.
-        </p>
+    <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
+    <p className="text-sm text-gray-500 mb-6">
+      Unesite osobne podatke i opis koji će biti prikazan gostima.
+    </p>
 
-        <div className="grid sm:grid-cols-2 gap-4 mb-6">
-          <div>
-            <label className="block font-medium mb-1">Ime kontakt osobe</label>
-            <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border p-2 rounded" />
-          </div>
-          <div>
-            <label className="block font-medium mb-1">Prezime kontakt osobe</label>
-            <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border p-2 rounded" />
-          </div>
-        </div>
+    <div className="grid sm:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label className="block font-medium mb-1">Ime kontakt osobe</label>
+        <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label className="block font-medium mb-1">Prezime kontakt osobe</label>
+        <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border p-2 rounded" />
+      </div>
+    </div>
 
-        <div className="mb-6">
-          <label className="block font-medium mb-1">📷 Fotografija domaćina</label>
-          {preview && <img src={preview} alt="Preview" className="w-24 h-24 rounded-full object-cover border mb-2" />}
-          <input type="file" accept="image/*" onChange={handlePhotoChange} className="block" />
-        </div>
+    <div className="mb-6">
+      <label className="block font-medium mb-1">📷 Fotografija domaćina</label>
+      {preview && <img src={preview} alt="Preview" className="w-24 h-24 rounded-full object-cover border mb-2" />}
+      <input type="file" accept="image/*" onChange={handlePhotoChange} className="block" />
+    </div>
 
-        <div className="mb-4">
-          <label className="block font-medium mb-1">🌐 Odaberite jezik opisa</label>
-          <div className="flex flex-wrap gap-2">
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => setSelectedLang(lang.code)}
-                className={getPillClasses(lang.code)}
-              >
-                <span>{lang.label}</span>
-                {(descriptions[lang.code] && descriptions[lang.code].trim()) && <span className="text-xs">✅</span>}
-              </button>
-            ))}
-        </div>
-
-        <div className="mb-6">
-          <div className="flex justify-between items-center">
-            <label className="block font-medium mb-1">📝 Opis ({selectedLang.toUpperCase()})</label>
-            {descriptions[selectedLang] && (
-              <span className={`text-xs px-2 py-1 rounded ${
-                translatedStatus[selectedLang] === 'translated'
-                  ? 'bg-yellow-100 text-yellow-700'
-                  : 'bg-green-100 text-green-700'
-              }`}>
-                {translatedStatus[selectedLang] === 'translated' ? '🔁 Prevedeno automatski' : '✍️ Ručno uneseno'}
-              </span>
-            )}
-          </div>
-          <textarea
-            rows={5}
-            value={descriptions[selectedLang] || ''}
-            onChange={handleDescriptionChange}
-            className="w-full max-w-full border border-gray-300 p-2 rounded"
-          />
-        </div>
-
-        <div className="flex flex-wrap gap-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
-            💾 Spremi profil
+    <div className="mb-4">
+      <label className="block font-medium mb-1">🌐 Odaberite jezik opisa</label>
+      <div className="flex flex-wrap gap-2">
+        {languages.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => setSelectedLang(lang.code)}
+            className={getPillClasses(lang.code)}
+          >
+            <span>{lang.label}</span>
+            {(descriptions[lang.code] && descriptions[lang.code].trim()) && <span className="text-xs">✅</span>}
           </button>
-          <button onClick={handleTranslate} className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow">
-            🔁 Prevedi automatski na sve jezike
-          </button>
-        </div>
-  );
+        ))}
+      </div>
+    </div> {/* ✅ this closes the language section! */}
+
+    <div className="mb-6">
+      <div className="flex justify-between items-center">
+        <label className="block font-medium mb-1">📝 Opis ({selectedLang.toUpperCase()})</label>
+        {descriptions[selectedLang] && (
+          <span className={`text-xs px-2 py-1 rounded ${
+            translatedStatus[selectedLang] === 'translated'
+              ? 'bg-yellow-100 text-yellow-700'
+              : 'bg-green-100 text-green-700'
+          }`}>
+            {translatedStatus[selectedLang] === 'translated' ? '🔁 Prevedeno automatski' : '✍️ Ručno uneseno'}
+          </span>
+        )}
+      </div>
+      <textarea
+        rows={5}
+        value={descriptions[selectedLang] || ''}
+        onChange={handleDescriptionChange}
+        className="w-full max-w-full border border-gray-300 p-2 rounded"
+      />
+    </div>
+
+    <div className="flex flex-wrap gap-4">
+      <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
+        💾 Spremi profil
+      </button>
+      <button onClick={handleTranslate} className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow">
+        🔁 Prevedi automatski na sve jezike
+      </button>
+    </div>
+  </div>
+);
 };
 
 export default HostProfile;
