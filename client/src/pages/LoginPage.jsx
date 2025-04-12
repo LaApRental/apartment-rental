@@ -24,6 +24,14 @@ useEffect(() => {
   }
 }, []);
 
+  // ✅ Pre-fill email if "Zapamti me" was used
+  useEffect(() => {
+    const rememberedUser = JSON.parse(localStorage.getItem('user'));
+    if (rememberedUser?.email) {
+      setEmail(rememberedUser.email);
+      setRememberMe(true);
+    }
+  }, []);
   
 const handleLogin = async (e) => {
   e.preventDefault();
