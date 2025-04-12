@@ -107,7 +107,7 @@ const DashboardPage = () => {
           <div></div>
         </header>
 
-        <main className="p-6">{renderTabContent()}</main>
+      <main className="p-6">{renderContent()}</main>
       </div>
     </div>
   );
