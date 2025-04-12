@@ -119,45 +119,41 @@ const DashboardPage = () => {
   </button>
 
   {dropdownOpen && (
-    <ul
-      className={`z-50 text-sm shadow-lg border bg-white 
-        fixed left-0 right-0 top-[60px] w-full rounded-none
-        md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md`}
-    >
-      <li>
-        <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-          <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
-        </a>
-      </li>
-      <li>
-        <a href="/osobni-podaci" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-          <i className="fa-regular fa-phone fa-fw fa-lg mr-2" /> Osobni podaci i primanje uplata
-        </a>
-      </li>
-      <li>
-        <a href="/lozinka" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-          <i className="fa-regular fa-lock fa-fw fa-lg mr-2" /> Promjena lozinke
-        </a>
-      </li>
-      <li>
-        <a href="/sms" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-          <i className="fa-regular fa-mobile fa-fw fa-lg mr-2" /> Viber obavijesti
-        </a>
-      </li>
-      <li>
-        <a href="/saldo" className="block px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
-          <span className="flex items-center">
-            <i className="fa-regular fa-credit-card fa-fw fa-lg mr-2" /> Saldo
-          </span>
-          <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
-        </a>
-      </li>
-      <li className="border-t">
-        <a href="/logout" className="block px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
-          <FaSignOutAlt className="mr-2" /> Odjava
-        </a>
-      </li>
-    </ul>
+<ul
+  className={`z-50 text-sm shadow-lg border bg-white 
+    fixed left-0 right-0 top-[60px] w-full rounded-none
+    md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md
+    divide-y divide-gray-200`}
+>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+    <i className="fa-regular fa-user fa-fw fa-lg mr-3 text-gray-600" />
+    <a href="/profil" className="flex-1 text-gray-800">Profil domaćina</a>
+  </li>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+    <i className="fa-regular fa-phone fa-fw fa-lg mr-3 text-gray-600" />
+    <a href="/osobni-podaci" className="flex-1 text-gray-800">Osobni podaci i primanje uplata</a>
+  </li>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+    <i className="fa-regular fa-lock fa-fw fa-lg mr-3 text-gray-600" />
+    <a href="/lozinka" className="flex-1 text-gray-800">Promjena lozinke</a>
+  </li>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+    <i className="fa-regular fa-mobile fa-fw fa-lg mr-3 text-gray-600" />
+    <a href="/sms" className="flex-1 text-gray-800">Viber obavijesti</a>
+  </li>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex justify-between items-center">
+    <div className="flex items-center">
+      <i className="fa-regular fa-credit-card fa-fw fa-lg mr-3 text-gray-600" />
+      <a href="/saldo" className="text-gray-800">Saldo</a>
+    </div>
+    <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
+  </li>
+  <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+    <FaSignOutAlt className="text-red-500 mr-3" />
+    <a href="/logout" className="text-red-600 font-semibold">Odjava</a>
+  </li>
+</ul>
+    
   )}
 </div>
 
