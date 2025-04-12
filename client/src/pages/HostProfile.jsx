@@ -96,14 +96,15 @@ return (
       className="w-24 h-24 rounded-full object-cover border mb-2"
     />
   )}
-  <div className="w-full overflow-hidden">
+  <label className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow cursor-pointer">
+    📤 Odaberi datoteku
     <input
       type="file"
       accept="image/*"
       onChange={handlePhotoChange}
-      className="block w-full max-w-full text-sm"
+      className="hidden"
     />
-  </div>
+  </label>
 </div>
 
     <div className="mb-4">
