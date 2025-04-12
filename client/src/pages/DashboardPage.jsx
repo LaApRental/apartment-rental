@@ -49,15 +49,20 @@ const DashboardPage = () => {
     return () => document.removeEventListener('mousedown', handleSidebarClickOutside);
   }, []);
 
-// Prevent scroll and layout shift when sidebar is open
 useEffect(() => {
-  const html = document.documentElement;
   if (sidebarOpen) {
-    html.classList.add('overflow-hidden');
+    document.body.style.overflow = 'hidden';
   } else {
-    html.classList.remove('overflow-hidden');
+    document.body.style.overflow = '';
   }
+
+  // Clean up on unmount
+  return () => {
+    document.body.style.overflow = '';
+  };
 }, [sidebarOpen]);
+
+  
   
   const renderContent = () => {
     switch (activeTab) {
@@ -98,7 +103,7 @@ useEffect(() => {
   };
 
   return (
-<div className={`min-h-screen bg-gray-100 font-sans relative overflow-x-hidden ${sidebarOpen ? 'fixed inset-0' : ''}`}>
+<div className="min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
   <div className="flex w-full max-w-screen-2xl mx-auto">
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
