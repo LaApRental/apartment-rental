@@ -109,7 +109,7 @@ const DashboardPage = () => {
           </div>
 
           {/* Profile Dropdown */}
-         <div className="relative" ref={dropdownRef}>
+   <div className="relative" ref={dropdownRef}>
   <button
     onClick={() => setDropdownOpen(!dropdownOpen)}
     className="flex items-center space-x-2 focus:outline-none"
@@ -120,9 +120,9 @@ const DashboardPage = () => {
 
   {dropdownOpen && (
     <ul
-      className={`absolute top-full mt-2 bg-white border shadow-lg z-50 text-sm
-        w-screen left-0 rounded-none
-        md:w-64 md:left-auto md:right-0 md:rounded-md`}
+      className={`z-50 text-sm shadow-lg border bg-white 
+        fixed left-0 right-0 top-[60px] w-full rounded-none
+        md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md`}
     >
       <li>
         <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
@@ -160,6 +160,7 @@ const DashboardPage = () => {
     </ul>
   )}
 </div>
+
         </header>
 
         {/* Tab Content */}
