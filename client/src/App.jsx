@@ -15,7 +15,14 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterNew />} />
         <Route path="/activate" element={<ActivateAccount />} />
-        <Route path="/dashboard" element={<DashboardPage />} /> {/* ✅ updated here */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
         <Route path="/profil" element={<HostProfile />} />
         <Route path="*" element={<div className="text-center p-10 text-gray-500">404 - Page not found</div>} />
       </Routes>
