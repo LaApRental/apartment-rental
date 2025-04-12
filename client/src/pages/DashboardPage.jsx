@@ -5,7 +5,9 @@ import {
   FaEnvelope,
   FaCommentDots,
   FaUserFriends,
-  FaBars
+  FaBars,
+  FaUserCircle,
+  FaSignOutAlt
 } from 'react-icons/fa';
 
 const tabs = [
@@ -75,6 +77,53 @@ const DashboardPage = () => {
         return null;
     }
   };
+  
+<header className="bg-white shadow px-6 py-4 flex justify-between items-center">
+  <h1 className="text-xl font-semibold">Korisnički panel</h1>
+  
+  <div className="relative group">
+    <button className="flex items-center space-x-2 focus:outline-none">
+      <FaUserCircle size={24} />
+      <span className="font-medium">Profil</span>
+    </button>
+
+    <ul className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg hidden group-hover:block z-50 text-sm">
+      <li>
+        <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
+        </a>
+      </li>
+      <li>
+        <a href="/osobni-podaci" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-phone fa-fw fa-lg mr-2" /> Osobni podaci i primanje uplata
+        </a>
+      </li>
+      <li>
+        <a href="/lozinka" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-lock fa-fw fa-lg mr-2" /> Promjena lozinke
+        </a>
+      </li>
+      <li>
+        <a href="/sms" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-mobile fa-fw fa-lg mr-2" /> Viber obavijesti
+        </a>
+      </li>
+      <li>
+        <a href="/saldo" className="block px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
+          <span className="flex items-center">
+            <i className="fa-regular fa-credit-card fa-fw fa-lg mr-2" /> Saldo
+          </span>
+          <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
+        </a>
+      </li>
+      <li className="border-t">
+        <a href="/logout" className="block px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
+          <FaSignOutAlt className="mr-2" /> Odjava
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
 
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans">
