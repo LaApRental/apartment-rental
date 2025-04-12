@@ -1,94 +1,95 @@
 import React, { useState } from 'react';
 
 const languages = [
-  { code: 'hr', name: 'Hrvatski' },
-  { code: 'en', name: 'Engleski' },
-  { code: 'de', name: 'Njemački' },
-  { code: 'it', name: 'Talijanski' },
-  { code: 'fr', name: 'Francuski' },
-  { code: 'cs', name: 'Češki' },
-  { code: 'pl', name: 'Poljski' },
-  { code: 'sl', name: 'Slovenski' },
-  { code: 'hu', name: 'Mađarski' },
-  { code: 'ro', name: 'Rumunjski' },
-  { code: 'nl', name: 'Nizozemski' },
-  { code: 'es', name: 'Španjolski' },
-  { code: 'da', name: 'Danski' },
-  { code: 'ru', name: 'Ruski' }
+  { code: 'hr', label: 'Hrvatski' },
+  { code: 'en', label: 'Engleski' },
+  { code: 'de', label: 'Njemački' },
+  { code: 'it', label: 'Talijanski' },
+  { code: 'fr', label: 'Francuski' },
+  { code: 'sl', label: 'Slovenski' },
+  { code: 'pl', label: 'Poljski' },
+  { code: 'cs', label: 'Češki' },
+  { code: 'hu', label: 'Mađarski' },
+  { code: 'ro', label: 'Rumunjski' },
+  { code: 'nl', label: 'Nizozemski' },
+  { code: 'es', label: 'Španjolski' },
+  { code: 'da', label: 'Danski' },
+  { code: 'ru', label: 'Ruski' }
 ];
 
 const HostProfile = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [selectedLang, setSelectedLang] = useState('hr');
-  const [descriptions, setDescriptions] = useState({ hr: '' });
-  const [profileImage, setProfileImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
+  const [descriptions, setDescriptions] = useState({});
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(null);
 
-  const handleDescriptionChange = (lang, text) => {
-    setDescriptions(prev => ({ ...prev, [lang]: text }));
+  const handleDescriptionChange = (e) => {
+    setDescriptions({
+      ...descriptions,
+      [selectedLang]: e.target.value
+    });
   };
 
-  const handleImageUpload = (e) => {
+  const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfileImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => setPreviewUrl(reader.result);
-      reader.readAsDataURL(file);
+      setPhoto(file);
+      setPreview(URL.createObjectURL(file));
     }
   };
 
+  const handleTranslate = () => {
+    alert('🟡 Integracija Google Translate API će biti dodana ovdje.');
+  };
+
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">👤 Profil domaćina</h2>
+    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
+      <h2 className="text-2xl font-semibold mb-4">🧑‍💼 Profil domaćina</h2>
 
-      {/* PHOTO UPLOAD */}
-      <div className="mb-8 text-center">
-        <h4 className="text-lg font-semibold mb-2">Fotografija domaćina</h4>
-        {previewUrl ? (
-          <img src={previewUrl} alt="Preview" className="w-32 h-32 rounded-full object-cover mx-auto mb-2" />
-        ) : (
-          <img src="/static/img/no_usr_img_big.png" alt="No profile" className="w-32 h-32 rounded-full mx-auto mb-2" />
-        )}
-        <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-2" />
-      </div>
-
-      {/* NAME INPUTS */}
-      <div className="mb-6">
-        <label className="block font-medium mb-1">Ime kontakt osobe</label>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="input w-full" />
-      </div>
-      <div className="mb-6">
-        <label className="block font-medium mb-1">Prezime kontakt osobe</label>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="input w-full" />
-      </div>
-
-      {/* LANGUAGE SELECTOR */}
       <div className="mb-4">
-        <label className="block font-medium mb-1">Jezik unosa</label>
-        <select value={selectedLang} onChange={(e) => setSelectedLang(e.target.value)} className="input w-full">
-          {languages.map((lang) => (
-            <option key={lang.code} value={lang.code}>{lang.name}</option>
+        <label className="block font-medium mb-1">Ime:</label>
+        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border p-2 rounded" />
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-medium mb-1">Prezime:</label>
+        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border p-2 rounded" />
+      </div>
+
+      <div className="mb-6">
+        <label className="block font-medium mb-1">Fotografija domaćina:</label>
+        {preview && <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded mb-2" />}
+        <input type="file" accept="image/*" onChange={handlePhotoChange} />
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-medium mb-1">Odaberite jezik opisa:</label>
+        <select value={selectedLang} onChange={(e) => setSelectedLang(e.target.value)} className="w-full border p-2 rounded">
+          {languages.map(lang => (
+            <option key={lang.code} value={lang.code}>{lang.label}</option>
           ))}
         </select>
       </div>
 
-      {/* DESCRIPTION TEXTAREA */}
-      <div className="mb-6">
-        <label className="block font-medium mb-1">Opis ({selectedLang})</label>
+      <div className="mb-4">
+        <label className="block font-medium mb-1">Opis:</label>
         <textarea
-          rows="6"
+          rows={6}
           value={descriptions[selectedLang] || ''}
-          onChange={(e) => handleDescriptionChange(selectedLang, e.target.value)}
-          className="input w-full"
+          onChange={handleDescriptionChange}
+          className="w-full border p-2 rounded"
         />
       </div>
 
-      {/* ACTION BUTTONS */}
       <div className="flex gap-4">
-        <button className="btn btn-primary">💾 Spremi</button>
-        <button className="btn btn-secondary">🌍 Prevedi na sve jezike</button>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={() => alert('✅ Spremanje...')}>
+          Spremi profil
+        </button>
+        <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={handleTranslate}>
+          Prevedi opis na ostale jezike
+        </button>
       </div>
     </div>
   );
