@@ -57,7 +57,7 @@ const DashboardPage = () => {
                       <p className="text-sm text-gray-600">Preporučite nas i ostvarite popuste!</p>
                     </div>
                   </div>
-                );
+                );}
       case 'listings':
         return <div>Ovdje će biti vaši oglasi.</div>;
       case 'inquiries':
