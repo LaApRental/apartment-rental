@@ -35,24 +35,36 @@ const HostProfile = () => {
   };
 
   const handleDescriptionChange = (e) => {
-    setDescriptions({ ...descriptions, [selectedLang]: e.target.value });
-    setTranslatedStatus({ ...translatedStatus, [selectedLang]: 'manual' });
+    const text = e.target.value;
+    setDescriptions(prev => ({ ...prev, [selectedLang]: text }));
+    setTranslatedStatus(prev => ({ ...prev, [selectedLang]: 'manual' }));
   };
 
   const handleTranslate = () => {
-    const sourceText = descriptions['hr'] || '';
+    const hrText = descriptions['hr'] || '';
+    if (!hrText.trim()) return alert('Opis na hrvatskom je prazan.');
+
     const updated = { ...descriptions };
     const status = { ...translatedStatus };
 
     languages.forEach(({ code }) => {
       if (code !== 'hr' && !descriptions[code]) {
-        updated[code] = sourceText;
+        updated[code] = hrText;
         status[code] = 'translated';
       }
     });
 
     setDescriptions(updated);
     setTranslatedStatus(status);
+  };
+
+  const getPillClasses = (code) => {
+    const base = 'px-3 py-1 text-sm rounded-full border transition flex items-center gap-1';
+    const status = translatedStatus[code];
+
+    if (status === 'manual') return `${base} bg-green-100 text-green-800 border-green-300`;
+    if (status === 'translated') return `${base} bg-yellow-100 text-yellow-800 border-yellow-300`;
+    return `${base} bg-white text-gray-700 hover:bg-gray-100`;
   };
 
   return (
@@ -81,46 +93,32 @@ const HostProfile = () => {
 
       <div className="mb-4">
         <label className="block font-medium mb-1">🌐 Odaberite jezik opisa</label>
-<div className="flex flex-wrap gap-2">
-  {languages.map((lang) => {
-    const isSelected = selectedLang === lang.code;
-    const status = translatedStatus[lang.code];
-
-    let statusStyle = 'bg-white text-gray-700 hover:bg-gray-100';
-    if (status === 'translated') {
-      statusStyle = 'bg-green-100 text-green-700 border-green-300';
-    } else if (status === 'manual') {
-      statusStyle = 'bg-yellow-100 text-yellow-700 border-yellow-300';
-    }
-
-    return (
-      <button
-        key={lang.code}
-        onClick={() => setSelectedLang(lang.code)}
-        className={`px-3 py-1 text-sm rounded-full border transition ${
-          isSelected ? 'border-blue-600 ring-2 ring-blue-200' : statusStyle
-        }`}
-      >
-        {lang.label}
-      </button>
-    );
-  })}
-</div>
-        
+        <div className="flex flex-wrap gap-2">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setSelectedLang(lang.code)}
+              className={getPillClasses(lang.code)}
+            >
+              <span>{lang.label}</span>
+              {(descriptions[lang.code] && descriptions[lang.code].trim()) && <span className="text-xs">✅</span>}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="mb-6">
         <div className="flex justify-between items-center">
-          <label className="block font-medium mb-1">
-            📝 Opis ({selectedLang.toUpperCase()})
-          </label>
-          <span className={`text-xs px-2 py-1 rounded ${
-            translatedStatus[selectedLang] === 'translated'
-              ? 'bg-yellow-100 text-yellow-700'
-              : 'bg-green-100 text-green-700'
-          }`}>
-            {translatedStatus[selectedLang] === 'translated' ? '🔁 Prevedeno' : '✍️ Ručno uneseno'}
-          </span>
+          <label className="block font-medium mb-1">📝 Opis ({selectedLang.toUpperCase()})</label>
+          {descriptions[selectedLang] && (
+            <span className={`text-xs px-2 py-1 rounded ${
+              translatedStatus[selectedLang] === 'translated'
+                ? 'bg-yellow-100 text-yellow-700'
+                : 'bg-green-100 text-green-700'
+            }`}>
+              {translatedStatus[selectedLang] === 'translated' ? '🔁 Prevedeno automatski' : '✍️ Ručno uneseno'}
+            </span>
+          )}
         </div>
         <textarea
           rows={5}
@@ -135,7 +133,7 @@ const HostProfile = () => {
           💾 Spremi profil
         </button>
         <button onClick={handleTranslate} className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow">
-          🔁 Prevedi s hrvatskog
+          🔁 Prevedi automatski na sve jezike
         </button>
       </div>
     </div>
