@@ -59,7 +59,7 @@ const HostProfile = () => {
   };
 
   const getPillClasses = (code) => {
-    const base = 'px-3 py-1 text-sm rounded-full border transition flex items-center gap-1';
+  const base = 'px-3 py-1 text-sm rounded-full border transition flex items-center gap-1 whitespace-nowrap';
     const status = translatedStatus[code];
 
     if (status === 'manual') return `${base} bg-green-100 text-green-800 border-green-300`;
@@ -68,7 +68,7 @@ const HostProfile = () => {
   };
 
   return (
-  <div className="max-w-5xl mx-auto bg-white shadow rounded-lg p-4 sm:p-6 my-6">
+<div className="w-full max-w-5xl mx-auto bg-white shadow rounded-lg p-4 sm:p-6 my-6 overflow-hidden">
         <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
         <p className="text-sm text-gray-500 mb-6">
           Unesite osobne podatke i opis koji će biti prikazan gostima.
@@ -123,7 +123,7 @@ const HostProfile = () => {
             rows={5}
             value={descriptions[selectedLang] || ''}
             onChange={handleDescriptionChange}
-            className="w-full border border-gray-300 p-2 rounded"
+            className="w-full max-w-full border border-gray-300 p-2 rounded"
           />
         </div>
 
