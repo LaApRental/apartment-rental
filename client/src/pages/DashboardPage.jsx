@@ -98,7 +98,7 @@ useEffect(() => {
   };
 
   return (
-<div className="min-h-screen bg-gray-100 overflow-x-hidden">
+<div className={`min-h-screen bg-gray-100 font-sans relative overflow-x-hidden w-full ${sidebarOpen ? 'fixed inset-0' : ''}`}>
   <div className="flex w-full max-w-screen-2xl mx-auto">
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
