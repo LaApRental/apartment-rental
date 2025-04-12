@@ -208,7 +208,7 @@ useEffect(() => {
         </header>
 
         {/* Tab Content */}
-<main className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 w-full">
+<main className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 w-full mt-6">
   <div className="max-w-5xl mx-auto w-full">
     {renderContent()}
   </div>
