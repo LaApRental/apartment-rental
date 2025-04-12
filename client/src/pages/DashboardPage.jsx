@@ -153,7 +153,16 @@ const DashboardPage = () => {
               >
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <i className="fa-regular fa-user fa-fw fa-lg mr-3 text-gray-600" />
-                  <a href="/profil" className="flex-1 text-gray-800">Profil domaćina</a>
+                        <button
+                        onClick={() => {
+                          setActiveTab('hostProfile');
+                          setDropdownOpen(false); // close dropdown after click
+                        }}
+                        className="flex-1 text-left text-gray-800"
+                      >
+                        Profil domaćina
+                      </button>
+
                 </li>
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <i className="fa-regular fa-phone fa-fw fa-lg mr-3 text-gray-600" />
