@@ -7,6 +7,7 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
 
 useEffect(() => {
@@ -45,7 +46,13 @@ const handleLogin = async (e) => {
     }
 
     setMessage('Uspješna prijava! Preusmjeravanje...');
-    localStorage.setItem('user', JSON.stringify(result.user || { email }));
+        if (rememberMe) {
+          localStorage.setItem('user', JSON.stringify(result.user || { email }));
+          sessionStorage.removeItem('user'); // Clean up the other storage
+        } else {
+          sessionStorage.setItem('user', JSON.stringify(result.user || { email }));
+          localStorage.removeItem('user');
+        }
     setTimeout(() => navigate('/dashboard'), 1000);
 
   } catch (err) {
@@ -89,6 +96,21 @@ const handleLogin = async (e) => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-2 border rounded"
         />
+
+                    <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={() => setRememberMe(!rememberMe)}
+                  className="mr-2"
+                />
+                Zapamti me
+              </label>
+              <a href="/zaboravljena-lozinka" className="text-blue-600 hover:underline">
+                Zaboravljena lozinka?
+              </a>
+            </div>
 
 <button
   type="submit"
