@@ -88,10 +88,10 @@ const DashboardPage = () => {
     <div className="flex min-h-screen bg-gray-100 font-sans">
       {/* Backdrop for sidebar on mobile */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+          <div
+            className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden transition-opacity duration-200 ease-out"
+            onClick={() => setSidebarOpen(false)}
+          />
       )}
 
       {/* Sidebar */}
