@@ -88,7 +88,7 @@ const DashboardPage = () => {
   };
 
   return (
-<div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
+<div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden w-full">
 
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
@@ -194,7 +194,7 @@ const DashboardPage = () => {
 
         {/* Tab Content */}
 <main className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 w-full">
-  <div className="max-w-5xl mx-auto">
+<div className="max-w-5xl mx-auto w-full">
     {renderContent()}
   </div>
 </main>
