@@ -23,7 +23,29 @@ const DashboardPage = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <div>Dobrodošli u korisnički panel!</div>;
+       return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                      <h3 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h3>
+                      <p className="text-sm text-gray-600">Kliknite za uređivanje svojih oglasa.</p>
+                    </div>
+                
+                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                      <h3 className="text-lg font-semibold mb-2">📨 Pregled upita</h3>
+                      <p className="text-sm text-gray-600">Upravljajte svim upitima svojih gostiju.</p>
+                    </div>
+                
+                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                      <h3 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h3>
+                      <p className="text-sm text-gray-600">Odgovorite na komentare i ocjene.</p>
+                    </div>
+                
+                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                      <h3 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h3>
+                      <p className="text-sm text-gray-600">Preporučite nas i ostvarite popuste!</p>
+                    </div>
+                  </div>
+                );
       case 'listings':
         return <div>Ovdje će biti vaši oglasi.</div>;
       case 'inquiries':
