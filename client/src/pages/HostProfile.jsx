@@ -59,7 +59,7 @@ const HostProfile = () => {
   };
 
   const getPillClasses = (code) => {
-  const base = 'px-3 py-1 text-sm rounded-full border transition flex items-center gap-1 whitespace-nowrap';
+ const base = 'px-3 py-1 text-sm rounded-full border transition flex items-center gap-1 whitespace-nowrap break-words max-w-full';
     const status = translatedStatus[code];
 
     if (status === 'manual') return `${base} bg-green-100 text-green-800 border-green-300`;
