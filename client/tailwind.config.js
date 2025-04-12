@@ -5,3 +5,8 @@ module.exports = {
   },
   plugins: [],
 };
+extend: {
+  maxWidth: {
+    'screen': '100vw'
+  }
+}
