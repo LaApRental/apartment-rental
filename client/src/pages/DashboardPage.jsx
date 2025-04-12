@@ -77,10 +77,43 @@ const DashboardPage = () => {
         return null;
     }
   };
-  
+
+  return (
+    <div className="flex min-h-screen bg-gray-100 font-sans">
+      {/* Sidebar */}
+      <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out 
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+        md:translate-x-0 md:static md:block`}>
+        <div className="p-4 text-xl font-bold border-b">📋 Panel</div>
+        <nav className="p-4 space-y-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => {
+                setActiveTab(tab.key);
+                setSidebarOpen(false);
+              }}
+              className={`flex items-center w-full px-4 py-2 rounded hover:bg-gray-200 transition ${
+                activeTab === tab.key ? 'bg-gray-200 font-semibold' : ''
+              }`}
+            >
+              <span className="mr-3">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
 <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-  <h1 className="text-xl font-semibold">Korisnički panel</h1>
-  
+  <div className="flex items-center space-x-4">
+    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
+      <FaBars size={20} />
+    </button>
+    <h1 className="text-xl font-semibold">Korisnički panel</h1>
+  </div>
+
   <div className="relative group">
     <button className="flex items-center space-x-2 focus:outline-none">
       <FaUserCircle size={24} />
@@ -124,43 +157,6 @@ const DashboardPage = () => {
     </ul>
   </div>
 </header>
-
-  return (
-    <div className="flex min-h-screen bg-gray-100 font-sans">
-      {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out 
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-        md:translate-x-0 md:static md:block`}>
-        <div className="p-4 text-xl font-bold border-b">📋 Panel</div>
-        <nav className="p-4 space-y-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => {
-                setActiveTab(tab.key);
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center w-full px-4 py-2 rounded hover:bg-gray-200 transition ${
-                activeTab === tab.key ? 'bg-gray-200 font-semibold' : ''
-              }`}
-            >
-              <span className="mr-3">{tab.icon}</span>
-              {tab.label}
-            </button>
-          ))}
-        </nav>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Mobile Header */}
-        <header className="bg-white p-4 shadow flex items-center justify-between md:hidden">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)}>
-            <FaBars size={20} />
-          </button>
-          <h1 className="text-lg font-semibold">Korisnički panel</h1>
-          <div></div>
-        </header>
 
         <main className="p-6">{renderContent()}</main>
       </div>
