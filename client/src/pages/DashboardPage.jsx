@@ -49,6 +49,16 @@ const DashboardPage = () => {
     return () => document.removeEventListener('mousedown', handleSidebarClickOutside);
   }, []);
 
+// Lock body scroll when sidebar is open to prevent layout shift
+useEffect(() => {
+  if (sidebarOpen) {
+    document.body.classList.add('overflow-hidden');
+  } else {
+    document.body.classList.remove('overflow-hidden');
+  }
+}, [sidebarOpen]);
+
+  
   const renderContent = () => {
     switch (activeTab) {
       case 'overview':
