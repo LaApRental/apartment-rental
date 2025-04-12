@@ -51,12 +51,11 @@ const DashboardPage = () => {
 
 // Prevent scroll and layout shift when sidebar is open
 useEffect(() => {
-  const body = document.body;
-
+  const html = document.documentElement;
   if (sidebarOpen) {
-    body.classList.add('overflow-hidden');
+    html.classList.add('overflow-hidden');
   } else {
-    body.classList.remove('overflow-hidden');
+    html.classList.remove('overflow-hidden');
   }
 }, [sidebarOpen]);
   
