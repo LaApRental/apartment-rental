@@ -86,11 +86,25 @@ return (
       </div>
     </div>
 
-    <div className="mb-6">
-      <label className="block font-medium mb-1">📷 Fotografija domaćina</label>
-      {preview && <img src={preview} alt="Preview" className="w-24 h-24 rounded-full object-cover border mb-2" />}
-      <input type="file" accept="image/*" onChange={handlePhotoChange} className="block" />
-    </div>
+
+<div className="mb-6">
+  <label className="block font-medium mb-1">📷 Fotografija domaćina</label>
+  {preview && (
+    <img
+      src={preview}
+      alt="Preview"
+      className="w-24 h-24 rounded-full object-cover border mb-2"
+    />
+  )}
+  <div className="w-full overflow-hidden">
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handlePhotoChange}
+      className="block w-full max-w-full text-sm"
+    />
+  </div>
+</div>
 
     <div className="mb-4">
       <label className="block font-medium mb-1">🌐 Odaberite jezik opisa</label>
