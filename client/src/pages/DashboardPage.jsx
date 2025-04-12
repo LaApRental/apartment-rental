@@ -89,7 +89,9 @@ const DashboardPage = () => {
       {/* Backdrop for sidebar on mobile */}
       {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden transition-opacity duration-200 ease-out"
+            className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out ${
+              sidebarOpen ? 'opacity-100 bg-black bg-opacity-30' : 'opacity-0 pointer-events-none'
+            }`}
             onClick={() => setSidebarOpen(false)}
           />
       )}
