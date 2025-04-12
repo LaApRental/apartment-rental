@@ -200,19 +200,25 @@ useEffect(() => {
                   </div>
                   <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
                 </li>
-                    <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
-                      <FaSignOutAlt className="text-red-500 mr-3" />
-                      <button
-                        onClick={() => {
-                          localStorage.removeItem('user');
-                          localStorage.setItem('logoutMessage', 'Uspješno ste se odjavili.');
-                          navigate('/login');
-                        }}
-                        className="text-red-600 font-semibold"
-                      >
-                        Odjava
-                      </button>
-                    </li>
+                      <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
+                        <FaSignOutAlt className="text-red-500 mr-3" />
+                        <button
+                          onClick={() => {
+                            // Always clear session storage
+                            sessionStorage.removeItem('user');
+                      
+                            // ✅ Only clear localStorage if user did NOT select "Zapamti me"
+                            // But if you're fine clearing both, just keep both lines
+                            localStorage.removeItem('user');
+                      
+                            localStorage.setItem('logoutMessage', 'Uspješno ste se odjavili.');
+                            navigate('/login');
+                          }}
+                          className="text-red-600 font-semibold"
+                        >
+                          Odjava
+                        </button>
+                      </li>
               </ul>
             )}
           </div>
