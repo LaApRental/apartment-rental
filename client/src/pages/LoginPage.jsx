@@ -55,11 +55,17 @@ const handleLogin = async (e) => {
       >
         <h2 className="text-xl font-bold text-center">Prijava</h2>
 
-        {message && (
-          <div className="bg-green-100 border border-green-400 text-green-700 text-sm p-3 rounded">
-            {message}
-          </div>
-        )}
+            {message && (
+              <div
+                className={`text-sm p-3 rounded border ${
+                  message.includes('Uspješna')
+                    ? 'bg-green-100 border-green-400 text-green-700'
+                    : 'bg-red-100 border-red-400 text-red-700'
+                }`}
+              >
+                {message}
+              </div>
+            )}
 
         <input
           type="email"
