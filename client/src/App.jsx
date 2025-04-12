@@ -7,13 +7,29 @@ import RegisterNew from './pages/RegisterNew';
 import ActivateAccount from './pages/ActivateAccount';
 import DashboardPage from './pages/DashboardPage'; // ✅ use the new dashboard
 import HostProfile from './pages/HostProfile';
+import RedirectIfAuthenticated from './components/RedirectIfAuthenticated';
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterNew />} />
+
+                <Route
+                  path="/login"
+                  element={
+                    <RedirectIfAuthenticated>
+                      <LoginPage />
+                    </RedirectIfAuthenticated>
+                  }
+                />
+                <Route
+                  path="/register"
+                  element={
+                    <RedirectIfAuthenticated>
+                      <RegisterNew />
+                    </RedirectIfAuthenticated>
+                  }
+                />
         <Route path="/activate" element={<ActivateAccount />} />
               <Route
                 path="/dashboard"
