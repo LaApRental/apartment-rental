@@ -135,6 +135,7 @@ const HostProfile = () => {
             🔁 Prevedi automatski na sve jezike
           </button>
         </div>
+           </div>
   );
 };
 
