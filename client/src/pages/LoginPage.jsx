@@ -20,30 +20,32 @@ export function LoginPage() {
 
 const handleLogin = async (e) => {
   e.preventDefault();
-  setMessage(''); // clear previous message
+  setLoading(true);
+  setMessage('');
 
   try {
     const res = await fetch('https://apartment-rental.onrender.com/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     });
 
     const result = await res.json();
 
     if (!res.ok) {
-      setMessage(result.error || '❌ Neuspješna prijava. Provjerite podatke.');
+      setMessage(result.error || 'Neuspješna prijava.');
+      setLoading(false);
       return;
     }
 
-    setMessage('✅ Uspješna prijava! Preusmjeravanje...');
+    setMessage('Uspješna prijava! Preusmjeravanje...');
     localStorage.setItem('user', JSON.stringify(result.user || { email }));
-
-    setTimeout(() => navigate('/dashboard'), 1000); // short delay for feedback
+    setTimeout(() => navigate('/dashboard'), 1000);
 
   } catch (err) {
-    setMessage('⚠️ Greška na mreži. Pokušajte ponovno.');
-    console.error('Network error:', err);
+    console.error('💥 Network error:', err);
+    setMessage('Greška na mreži!');
+    setLoading(false);
   }
 };
 
@@ -82,9 +84,22 @@ const handleLogin = async (e) => {
           className="w-full p-2 border rounded"
         />
 
-        <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-          Prijavi se
-        </button>
+<button
+  type="submit"
+  disabled={loading}
+  className={`w-full flex items-center justify-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${
+    loading ? 'opacity-70 cursor-not-allowed' : ''
+  }`}
+>
+  {loading ? (
+    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 000 16z" />
+    </svg>
+  ) : (
+    'Prijavi se'
+  )}
+</button>
       </form>
     </div>
   );
