@@ -25,7 +25,7 @@ const DashboardPage = () => {
   const dropdownRef = useRef(null);
   const sidebarRef = useRef(null);
 
-  // Auto-close profile dropdown
+  // Close profile dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -36,7 +36,7 @@ const DashboardPage = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Auto-close sidebar on mobile
+  // Close sidebar when clicking outside (on mobile)
   useEffect(() => {
     const handleSidebarClickOutside = (e) => {
       const isMobile = window.innerWidth < 768;
@@ -85,20 +85,19 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 font-sans">
-      {/* Backdrop for sidebar on mobile */}
-      {sidebarOpen && (
-          <div
-            className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out 
-              ${sidebarOpen ? 'opacity-100 pointer-events-auto bg-black bg-opacity-30' : 'opacity-0 pointer-events-none'}`}
-            onClick={() => setSidebarOpen(false)}
-          />
-      )}
+    <div className="flex min-h-screen bg-gray-100 font-sans relative">
+
+      {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
+      <div
+        className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out
+        ${sidebarOpen ? 'opacity-100 pointer-events-auto bg-black bg-opacity-30' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setSidebarOpen(false)}
+      />
 
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out 
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
         md:translate-x-0 md:static md:block`}
       >
@@ -124,7 +123,7 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Top Header */}
+        {/* Header */}
         <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
@@ -144,11 +143,10 @@ const DashboardPage = () => {
             </button>
 
             {dropdownOpen && (
-              <ul
-                className={`z-50 text-sm shadow-lg border bg-white 
-                  fixed left-0 right-0 top-[60px] w-full rounded-none
-                  md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md
-                  divide-y divide-gray-200`}
+              <ul className="z-50 text-sm shadow-lg border bg-white 
+                fixed left-0 right-0 top-[60px] w-full rounded-none
+                md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md
+                divide-y divide-gray-200"
               >
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <i className="fa-regular fa-user fa-fw fa-lg mr-3 text-gray-600" />
