@@ -89,10 +89,10 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user || !user.activated) {
-      console.log('❌ User not found or not activated');
-      return res.status(400).json({ error: 'Pogrešan e-mail ili račun nije aktiviran.' });
-    }
+        if (!user) {
+          console.log('❌ User not found');
+          return res.status(400).json({ error: 'Pogrešan e-mail ili lozinka.' });
+        }
 
         if (!user.password) {
           console.log('❌ User has no password set');
