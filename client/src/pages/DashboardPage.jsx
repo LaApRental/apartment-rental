@@ -127,7 +127,7 @@ const DashboardPage = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-<header className="bg-white shadow w-full px-4 sm:px-6 py-4 flex justify-between items-center">
+<header className="relative bg-white shadow w-full px-4 sm:px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
               <FaBars size={20} />
@@ -146,11 +146,11 @@ const DashboardPage = () => {
             </button>
 
             {dropdownOpen && (
-              <ul className="z-50 text-sm shadow-lg border bg-white 
-                fixed left-0 right-0 top-[60px] w-full rounded-none
-                md:absolute md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md
-                divide-y divide-gray-200"
-              >
+                    <ul className="z-50 text-sm shadow-lg border bg-white 
+                      absolute left-0 right-0 top-[60px] rounded-none w-full
+                      md:top-full md:mt-2 md:w-64 md:right-0 md:left-auto md:rounded-md
+                      divide-y divide-gray-200 overflow-x-hidden"
+                    >
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <i className="fa-regular fa-user fa-fw fa-lg mr-3 text-gray-600" />
                         <button
