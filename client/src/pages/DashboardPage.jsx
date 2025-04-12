@@ -16,7 +16,7 @@ const tabs = [
   { key: 'listings', label: 'Oglasi', icon: <FaListAlt /> },
   { key: 'inquiries', label: 'Upiti', icon: <FaEnvelope /> },
   { key: 'comments', label: 'Komentari', icon: <FaCommentDots /> },
-  { key: 'invite', label: 'Pozovi prijatelja', icon: <FaUserFriends /> },
+  { key: 'invite', label: 'Pozovi prijatelja', icon: <FaUserFriends /> }
 ];
 
 const DashboardPage = () => {
