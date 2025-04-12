@@ -26,7 +26,6 @@ const DashboardPage = () => {
   const dropdownRef = useRef(null);
   const sidebarRef = useRef(null);
 
-  // Close profile dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -37,7 +36,6 @@ const DashboardPage = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close sidebar when clicking outside (on mobile)
   useEffect(() => {
     const handleSidebarClickOutside = (e) => {
       const isMobile = window.innerWidth < 768;
@@ -88,9 +86,8 @@ const DashboardPage = () => {
   };
 
   return (
-<div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
-
-      {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
+    <div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
+      {/* Backdrop */}
       <div
         className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out
         ${sidebarOpen ? 'opacity-100 pointer-events-auto bg-black bg-opacity-30' : 'opacity-0 pointer-events-none'}`}
@@ -98,12 +95,12 @@ const DashboardPage = () => {
       />
 
       {/* Sidebar */}
-          <div
-            ref={sidebarRef}
-            className={`fixed top-0 left-0 h-full w-64 max-w-full bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-            md:translate-x-0 md:static md:block`}
-          >
+      <div
+        ref={sidebarRef}
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+        md:translate-x-0 md:static md:block`}
+      >
         <div className="p-4 text-xl font-bold border-b">📋 Panel</div>
         <nav className="p-4 space-y-2">
           {tabs.map((tab) => (
@@ -126,7 +123,6 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Header */}
         <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
@@ -153,36 +149,17 @@ const DashboardPage = () => {
               >
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <i className="fa-regular fa-user fa-fw fa-lg mr-3 text-gray-600" />
-                        <button
-                        onClick={() => {
-                          setActiveTab('hostProfile');
-                          setDropdownOpen(false); // close dropdown after click
-                        }}
-                        className="flex-1 text-left text-gray-800"
-                      >
-                        Profil domaćina
-                      </button>
-
+                  <button
+                    onClick={() => {
+                      setActiveTab('hostProfile');
+                      setDropdownOpen(false);
+                    }}
+                    className="flex-1 text-left text-gray-800"
+                  >
+                    Profil domaćina
+                  </button>
                 </li>
-                <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
-                  <i className="fa-regular fa-phone fa-fw fa-lg mr-3 text-gray-600" />
-                  <a href="/osobni-podaci" className="flex-1 text-gray-800">Osobni podaci i primanje uplata</a>
-                </li>
-                <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
-                  <i className="fa-regular fa-lock fa-fw fa-lg mr-3 text-gray-600" />
-                  <a href="/lozinka" className="flex-1 text-gray-800">Promjena lozinke</a>
-                </li>
-                <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
-                  <i className="fa-regular fa-mobile fa-fw fa-lg mr-3 text-gray-600" />
-                  <a href="/sms" className="flex-1 text-gray-800">Viber obavijesti</a>
-                </li>
-                <li className="px-4 py-3 hover:bg-gray-50 transition flex justify-between items-center">
-                  <div className="flex items-center">
-                    <i className="fa-regular fa-credit-card fa-fw fa-lg mr-3 text-gray-600" />
-                    <a href="/saldo" className="text-gray-800">Saldo</a>
-                  </div>
-                  <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
-                </li>
+                {/* Other profile menu links */}
                 <li className="px-4 py-3 hover:bg-gray-50 transition flex items-center">
                   <FaSignOutAlt className="text-red-500 mr-3" />
                   <a href="/logout" className="text-red-600 font-semibold">Odjava</a>
@@ -192,12 +169,9 @@ const DashboardPage = () => {
           </div>
         </header>
 
-        {/* Tab Content */}
-<main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
-  <div className="w-full max-w-4xl mx-auto">{renderContent()}</div>
-</main>
-        
-        
+        <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+          <div className="w-full max-w-5xl mx-auto">{renderContent()}</div>
+        </main>
       </div>
     </div>
   );
