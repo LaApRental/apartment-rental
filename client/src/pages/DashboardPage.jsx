@@ -205,9 +205,10 @@ useEffect(() => {
                       <button
                         onClick={() => {
                           localStorage.removeItem('user');
+                          localStorage.setItem('logoutMessage', 'Uspješno ste se odjavili.');
                           navigate('/login');
                         }}
-                        className="text-red-600 font-semibold w-full text-left"
+                        className="text-red-600 font-semibold"
                       >
                         Odjava
                       </button>
