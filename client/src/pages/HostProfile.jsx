@@ -81,21 +81,32 @@ const HostProfile = () => {
 
       <div className="mb-4">
         <label className="block font-medium mb-1">🌐 Odaberite jezik opisa</label>
-        <div className="flex flex-wrap gap-2">
-          {languages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => setSelectedLang(lang.code)}
-              className={`px-3 py-1 text-sm rounded-full border transition ${
-                selectedLang === lang.code
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              {lang.label}
-            </button>
-          ))}
-        </div>
+<div className="flex flex-wrap gap-2">
+  {languages.map((lang) => {
+    const isSelected = selectedLang === lang.code;
+    const status = translatedStatus[lang.code];
+
+    let statusStyle = 'bg-white text-gray-700 hover:bg-gray-100';
+    if (status === 'translated') {
+      statusStyle = 'bg-green-100 text-green-700 border-green-300';
+    } else if (status === 'manual') {
+      statusStyle = 'bg-yellow-100 text-yellow-700 border-yellow-300';
+    }
+
+    return (
+      <button
+        key={lang.code}
+        onClick={() => setSelectedLang(lang.code)}
+        className={`px-3 py-1 text-sm rounded-full border transition ${
+          isSelected ? 'border-blue-600 ring-2 ring-blue-200' : statusStyle
+        }`}
+      >
+        {lang.label}
+      </button>
+    );
+  })}
+</div>
+        
       </div>
 
       <div className="mb-6">
