@@ -109,57 +109,57 @@ const DashboardPage = () => {
           </div>
 
           {/* Profile Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center space-x-2 focus:outline-none"
-            >
-              <FaUserCircle size={24} />
-              <span className="font-medium">Profil</span>
-            </button>
+         <div className="relative" ref={dropdownRef}>
+  <button
+    onClick={() => setDropdownOpen(!dropdownOpen)}
+    className="flex items-center space-x-2 focus:outline-none"
+  >
+    <FaUserCircle size={24} />
+    <span className="font-medium">Profil</span>
+  </button>
 
-            {dropdownOpen && (
-<ul
-  className="absolute top-full mt-2 bg-white border shadow-lg z-50 text-sm
-             w-screen left-0 rounded-none
-             md:w-64 md:left-auto md:right-0 md:rounded-md"
->
-                <li>
-                  <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-                    <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
-                  </a>
-                </li>
-                <li>
-                  <a href="/osobni-podaci" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-                    <i className="fa-regular fa-phone fa-fw fa-lg mr-2" /> Osobni podaci i primanje uplata
-                  </a>
-                </li>
-                <li>
-                  <a href="/lozinka" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-                    <i className="fa-regular fa-lock fa-fw fa-lg mr-2" /> Promjena lozinke
-                  </a>
-                </li>
-                <li>
-                  <a href="/sms" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
-                    <i className="fa-regular fa-mobile fa-fw fa-lg mr-2" /> Viber obavijesti
-                  </a>
-                </li>
-                <li>
-                  <a href="/saldo" className="block px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
-                    <span className="flex items-center">
-                      <i className="fa-regular fa-credit-card fa-fw fa-lg mr-2" /> Saldo
-                    </span>
-                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
-                  </a>
-                </li>
-                <li className="border-t">
-                  <a href="/logout" className="block px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
-                    <FaSignOutAlt className="mr-2" /> Odjava
-                  </a>
-                </li>
-              </ul>
-            )}
-          </div>
+  {dropdownOpen && (
+    <ul
+      className={`absolute top-full mt-2 bg-white border shadow-lg z-50 text-sm
+        w-screen left-0 rounded-none
+        md:w-64 md:left-auto md:right-0 md:rounded-md`}
+    >
+      <li>
+        <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
+        </a>
+      </li>
+      <li>
+        <a href="/osobni-podaci" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-phone fa-fw fa-lg mr-2" /> Osobni podaci i primanje uplata
+        </a>
+      </li>
+      <li>
+        <a href="/lozinka" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-lock fa-fw fa-lg mr-2" /> Promjena lozinke
+        </a>
+      </li>
+      <li>
+        <a href="/sms" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+          <i className="fa-regular fa-mobile fa-fw fa-lg mr-2" /> Viber obavijesti
+        </a>
+      </li>
+      <li>
+        <a href="/saldo" className="block px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
+          <span className="flex items-center">
+            <i className="fa-regular fa-credit-card fa-fw fa-lg mr-2" /> Saldo
+          </span>
+          <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">0,00 EUR</span>
+        </a>
+      </li>
+      <li className="border-t">
+        <a href="/logout" className="block px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
+          <FaSignOutAlt className="mr-2" /> Odjava
+        </a>
+      </li>
+    </ul>
+  )}
+</div>
         </header>
 
         {/* Tab Content */}
