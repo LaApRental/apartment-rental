@@ -136,7 +136,6 @@ const HostProfile = () => {
           </button>
         </div>
       </div>
-  </div>
   );
 };
 
