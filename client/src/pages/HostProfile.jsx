@@ -71,7 +71,6 @@ return (
 <div className="w-full overflow-x-hidden">
   <div className="mx-auto max-w-screen-md px-0 sm:px-6 lg:px-8 py-0 sm:py-6">
     <div className="bg-white shadow rounded-lg p-4 sm:p-6">
-    <div className="bg-white shadow rounded-lg p-4 sm:p-6">
     <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
     <p className="text-sm text-gray-500 mb-6">
       Unesite osobne podatke i opis koji će biti prikazan gostima.
