@@ -68,7 +68,6 @@ const HostProfile = () => {
   };
 
   return (
-<div className="w-full px-4 sm:px-6 md:px-8">
   <div className="max-w-5xl mx-auto bg-white shadow rounded-lg p-4 sm:p-6 my-6">
         <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
         <p className="text-sm text-gray-500 mb-6">
@@ -105,7 +104,6 @@ const HostProfile = () => {
                 {(descriptions[lang.code] && descriptions[lang.code].trim()) && <span className="text-xs">✅</span>}
               </button>
             ))}
-          </div>
         </div>
 
         <div className="mb-6">
