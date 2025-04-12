@@ -193,10 +193,8 @@ const DashboardPage = () => {
         </header>
 
         {/* Tab Content */}
-<main className="flex-1 overflow-y-auto">
-  <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-6">
-    {renderContent()}
-  </div>
+<main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+  {renderContent()}
 </main>
         
         
