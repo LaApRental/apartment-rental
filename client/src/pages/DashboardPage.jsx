@@ -98,7 +98,7 @@ useEffect(() => {
   };
 
   return (
-<div className="flex min-h-screen bg-gray-100 font-sans relative w-full overflow-x-hidden">
+<div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
 
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
