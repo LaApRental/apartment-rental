@@ -98,8 +98,8 @@ useEffect(() => {
   };
 
   return (
-<div className="min-h-screen w-screen max-w-full overflow-x-hidden bg-gray-100">
-
+<div className="min-h-screen bg-gray-100 overflow-x-hidden">
+  <div className="flex w-full max-w-screen-2xl mx-auto">
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
         className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out
@@ -209,7 +209,7 @@ useEffect(() => {
   </div>
 </main>
         
-        
+        </div>
       </div>
     </div>
   );
