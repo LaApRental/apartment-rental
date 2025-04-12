@@ -17,7 +17,6 @@ const tabs = [
   { key: 'inquiries', label: 'Upiti', icon: <FaEnvelope /> },
   { key: 'comments', label: 'Komentari', icon: <FaCommentDots /> },
   { key: 'invite', label: 'Pozovi prijatelja', icon: <FaUserFriends /> },
-  { key: 'hostProfile', label: 'Profil domaćina', icon: <FaUserCircle /> }
 ];
 
 const DashboardPage = () => {
