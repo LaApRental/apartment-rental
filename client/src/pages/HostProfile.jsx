@@ -56,7 +56,7 @@ const HostProfile = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
+    <div className="bg-white shadow rounded-lg p-4 md:p-6 w-full max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
       <p className="text-sm text-gray-500 mb-6">
         Unesite osobne podatke i opis koji će biti prikazan gostima.
@@ -64,11 +64,11 @@ const HostProfile = () => {
 
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label className="block font-medium mb-1">Ime</label>
+          <label className="block font-medium mb-1">Ime kontakt osobe</label>
           <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border p-2 rounded" />
         </div>
         <div>
-          <label className="block font-medium mb-1">Prezime</label>
+          <label className="block font-medium mb-1">Prezime kontakt osobe</label>
           <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border p-2 rounded" />
         </div>
       </div>
