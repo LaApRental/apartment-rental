@@ -23,7 +23,14 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-        <Route path="/profil" element={<HostProfile />} />
+              <Route
+                path="/profil"
+                element={
+                  <ProtectedRoute>
+                    <HostProfile />
+                  </ProtectedRoute>
+                }
+              />
         <Route path="*" element={<div className="text-center p-10 text-gray-500">404 - Page not found</div>} />
       </Routes>
     </Router>
