@@ -9,16 +9,21 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
 
 
-  // ✅ Show welcome message after registration
-  useEffect(() => {
-    const success = localStorage.getItem('registrationSuccess');
-    if (success) {
-      const data = JSON.parse(success);
-      setMessage(`Poštovanje ${data.ime} ${data.prezime}, zahvaljujemo na registraciji! Podaci za prijavu su poslani na vašu e-mail adresu. Molimo provjerite i Vaš "Spam" pretinac!`);
-      localStorage.removeItem('registrationSuccess');
-    }
-  }, []);
+useEffect(() => {
+  const success = localStorage.getItem('registrationSuccess');
+  const logoutMsg = localStorage.getItem('logoutMessage');
 
+  if (success) {
+    const data = JSON.parse(success);
+    setMessage(`Poštovanje ${data.ime} ${data.prezime}, zahvaljujemo na registraciji! Podaci za prijavu su poslani na vašu e-mail adresu. Molimo provjerite i Vaš "Spam" pretinac!`);
+    localStorage.removeItem('registrationSuccess');
+  } else if (logoutMsg) {
+    setMessage(logoutMsg);
+    localStorage.removeItem('logoutMessage');
+  }
+}, []);
+
+  
 const handleLogin = async (e) => {
   e.preventDefault();
   setLoading(true);
