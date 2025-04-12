@@ -91,6 +91,7 @@ useEffect(() => {
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans">
       {/* Sidebar */}
+      ref={sidebarRef}
       <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out 
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
         md:translate-x-0 md:static md:block`}>
@@ -114,6 +115,14 @@ useEffect(() => {
         </nav>
       </div>
 
+      {/* Backdrop when sidebar is open on mobile */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Header */}
