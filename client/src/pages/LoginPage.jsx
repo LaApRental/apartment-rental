@@ -24,14 +24,13 @@ useEffect(() => {
   }
 }, []);
 
-  // ✅ Pre-fill email if "Zapamti me" was used
-  useEffect(() => {
-    const rememberedUser = JSON.parse(localStorage.getItem('user'));
-    if (rememberedUser?.email) {
-      setEmail(rememberedUser.email);
-      setRememberMe(true);
-    }
-  }, []);
+useEffect(() => {
+  const remembered = localStorage.getItem('rememberedEmail');
+  if (remembered) {
+    setEmail(remembered);
+    setRememberMe(true);
+  }
+}, []);
   
 const handleLogin = async (e) => {
   e.preventDefault();
@@ -55,12 +54,11 @@ const handleLogin = async (e) => {
 
     setMessage('Uspješna prijava! Preusmjeravanje...');
         if (rememberMe) {
-          localStorage.setItem('user', JSON.stringify(result.user || { email }));
-          sessionStorage.removeItem('user'); // Clean up the other storage
+          localStorage.setItem('rememberedEmail', email);
         } else {
-          sessionStorage.setItem('user', JSON.stringify(result.user || { email }));
-          localStorage.removeItem('user');
+          localStorage.removeItem('rememberedEmail');
         }
+        sessionStorage.setItem('user', JSON.stringify(result.user || { email }));
     setTimeout(() => navigate('/dashboard'), 1000);
 
   } catch (err) {
