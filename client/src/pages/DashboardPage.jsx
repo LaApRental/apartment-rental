@@ -196,6 +196,7 @@ const DashboardPage = () => {
           <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
             <div className="w-full max-w-5xl mx-auto">{renderContent()}</div>
           </main>
+        
       </div>
     </div>
   );
