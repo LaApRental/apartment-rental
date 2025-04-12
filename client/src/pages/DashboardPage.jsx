@@ -119,9 +119,11 @@ const DashboardPage = () => {
             </button>
 
             {dropdownOpen && (
-              <ul className="absolute mt-2 bg-white border rounded-md shadow-lg z-50 text-sm 
-               w-screen max-w-xs left-1/2 -translate-x-1/2 
-               md:w-64 md:left-auto md:right-0 md:translate-x-0">
+            <ul
+              className="absolute z-50 text-sm 
+             top-full mt-2 bg-white border rounded-md shadow-lg
+             w-full left-0
+             md:w-64 md:left-auto md:right-0">
                 <li>
                   <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
                     <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
