@@ -68,7 +68,7 @@ const HostProfile = () => {
   };
 
 return (
- <div className="w-full px-4 sm:px-6 md:px-8 overflow-x-hidden">
+<div className="w-full sm:max-w-screen-md sm:mx-auto bg-white shadow rounded-lg sm:p-6 my-0 sm:my-6 px-0">
     <div className="max-w-screen-md mx-auto bg-white shadow rounded-lg p-4 sm:p-6 my-6 overflow-x-hidden">
     <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
     <p className="text-sm text-gray-500 mb-6">
