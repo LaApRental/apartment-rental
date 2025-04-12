@@ -103,8 +103,8 @@ useEffect(() => {
   };
 
   return (
-<div className="w-full sm:max-w-screen-md sm:mx-auto bg-white shadow rounded-lg p-4 sm:p-6 sm:my-6 overflow-x-hidden">
-  <div className="flex w-full max-w-screen-2xl mx-auto">
+  <div className="min-h-screen bg-gray-100 font-sans overflow-x-hidden">
+    <div className="flex w-full max-w-screen-2xl mx-auto">
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
         className={`fixed inset-0 z-30 md:hidden transition-opacity duration-300 ease-in-out
