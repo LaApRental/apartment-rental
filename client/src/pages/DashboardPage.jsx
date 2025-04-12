@@ -120,7 +120,8 @@ const DashboardPage = () => {
       <span className="font-medium">Profil</span>
     </button>
 
-    <ul className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg hidden group-hover:block z-50 text-sm">
+    <ul className="absolute top-full mt-2 bg-white border rounded-md shadow-lg z-50 text-sm w-full left-0 md:w-64 md:right-0 md:left-auto hidden group-hover:block">
+
       <li>
         <a href="/profil" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
           <i className="fa-regular fa-user fa-fw fa-lg mr-2" /> Profil domaćina
