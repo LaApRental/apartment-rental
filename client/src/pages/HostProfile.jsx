@@ -17,6 +17,7 @@ const languages = [
   { code: 'ru', label: '🇷🇺 Ruski' }
 ];
 
+
 const HostProfile = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -68,7 +69,8 @@ const HostProfile = () => {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 md:p-6 w-full max-w-4xl mx-auto">
+<div className="min-h-screen w-full bg-gray-100 px-0">
+  <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-4 sm:p-6 my-6">
       <h2 className="text-2xl font-semibold mb-1">🧑‍💼 Profil domaćina</h2>
       <p className="text-sm text-gray-500 mb-6">
         Unesite osobne podatke i opis koji će biti prikazan gostima.
@@ -137,6 +139,7 @@ const HostProfile = () => {
         </button>
       </div>
     </div>
+  </div>
   );
 };
 
