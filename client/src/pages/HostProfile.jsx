@@ -41,55 +41,64 @@ const HostProfile = () => {
   };
 
   const handleTranslate = () => {
-    alert('🟡 Integracija Google Translate API će biti dodana ovdje.');
+    alert('🟡 Google Translate integration coming soon...');
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-semibold mb-4">🧑‍💼 Profil domaćina</h2>
+    <div className="bg-gray-100 min-h-screen p-4 md:p-8">
+      <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">🧑‍💼 Host Profile</h2>
+          <p className="text-sm text-gray-500">
+            Introduce yourself to guests with a short message and photo. Descriptions can be translated into multiple languages.
+          </p>
+        </div>
 
-      <div className="mb-4">
-        <label className="block font-medium mb-1">Ime:</label>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border p-2 rounded" />
-      </div>
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label className="block font-medium mb-1">First Name</label>
+            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full border border-gray-300 p-2 rounded" />
+          </div>
 
-      <div className="mb-4">
-        <label className="block font-medium mb-1">Prezime:</label>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border p-2 rounded" />
-      </div>
+          <div>
+            <label className="block font-medium mb-1">Last Name</label>
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full border border-gray-300 p-2 rounded" />
+          </div>
+        </div>
 
-      <div className="mb-6">
-        <label className="block font-medium mb-1">Fotografija domaćina:</label>
-        {preview && <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded mb-2" />}
-        <input type="file" accept="image/*" onChange={handlePhotoChange} />
-      </div>
+        <div className="mb-6">
+          <label className="block font-medium mb-1">Host Photo</label>
+          {preview && <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded-full mb-2 border" />}
+          <input type="file" accept="image/*" onChange={handlePhotoChange} className="block" />
+        </div>
 
-      <div className="mb-4">
-        <label className="block font-medium mb-1">Odaberite jezik opisa:</label>
-        <select value={selectedLang} onChange={(e) => setSelectedLang(e.target.value)} className="w-full border p-2 rounded">
-          {languages.map(lang => (
-            <option key={lang.code} value={lang.code}>{lang.label}</option>
-          ))}
-        </select>
-      </div>
+        <div className="mb-4">
+          <label className="block font-medium mb-1">Language</label>
+          <select value={selectedLang} onChange={(e) => setSelectedLang(e.target.value)} className="w-full border border-gray-300 p-2 rounded">
+            {languages.map(lang => (
+              <option key={lang.code} value={lang.code}>{lang.label}</option>
+            ))}
+          </select>
+        </div>
 
-      <div className="mb-4">
-        <label className="block font-medium mb-1">Opis:</label>
-        <textarea
-          rows={6}
-          value={descriptions[selectedLang] || ''}
-          onChange={handleDescriptionChange}
-          className="w-full border p-2 rounded"
-        />
-      </div>
+        <div className="mb-6">
+          <label className="block font-medium mb-1">Short Description</label>
+          <textarea
+            rows={5}
+            value={descriptions[selectedLang] || ''}
+            onChange={handleDescriptionChange}
+            className="w-full border border-gray-300 p-2 rounded"
+          />
+        </div>
 
-      <div className="flex gap-4">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={() => alert('✅ Spremanje...')}>
-          Spremi profil
-        </button>
-        <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={handleTranslate}>
-          Prevedi opis na ostale jezike
-        </button>
+        <div className="flex flex-wrap gap-4">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
+            Save Profile
+          </button>
+          <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow" onClick={handleTranslate}>
+            Translate & Save All
+          </button>
+        </div>
       </div>
     </div>
   );
