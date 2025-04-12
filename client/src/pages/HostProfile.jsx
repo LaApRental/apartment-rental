@@ -58,17 +58,17 @@ const HostProfile = () => {
     setTranslatedStatus(status);
   };
 
-  const getPillClasses = (code) => {
-    const base =
-      'px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 flex items-center gap-2 whitespace-nowrap cursor-pointer';
-    const status = translatedStatus[code];
+const getPillClasses = (code) => {
+  const base =
+    'px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 flex items-center gap-2 whitespace-nowrap cursor-pointer';
+  const status = translatedStatus[code];
 
-    if (status === 'manual')
-      return ${base} bg-green-50 text-green-700 border-green-200 hover:bg-green-100;
-    if (status === 'translated')
-      return ${base} bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100;
-    return ${base} bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100;
-  };
+  if (status === 'manual')
+    return `${base} bg-green-50 text-green-700 border-green-200 hover:bg-green-100`;
+  if (status === 'translated')
+    return `${base} bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100`;
+  return `${base} bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100`;
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
