@@ -20,28 +20,40 @@ const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'overview':
-       return (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                      <h3 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h3>
+  const renderContent = () => {
+  switch (activeTab) {
+              case 'overview':
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div
+                      onClick={() => setActiveTab('listings')}
+                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+                    >
+                      <h2 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h2>
                       <p className="text-sm text-gray-600">Kliknite za uređivanje svojih oglasa.</p>
                     </div>
-                
-                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                      <h3 className="text-lg font-semibold mb-2">📨 Pregled upita</h3>
+          
+                    <div
+                      onClick={() => setActiveTab('inquiries')}
+                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+                    >
+                      <h2 className="text-lg font-semibold mb-2">📨 Pregled upita</h2>
                       <p className="text-sm text-gray-600">Upravljajte svim upitima svojih gostiju.</p>
                     </div>
-                
-                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                      <h3 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h3>
-                      <p className="text-sm text-gray-600">Odgovorite na komentare i ocjene.</p>
+          
+                    <div
+                      onClick={() => setActiveTab('comments')}
+                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+                    >
+                      <h2 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h2>
+                      <p className="text-sm text-gray-600">Pogledajte i odgovorite na komentare gostiju.</p>
                     </div>
-                
-                    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
-                      <h3 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h3>
+          
+                    <div
+                      onClick={() => setActiveTab('invite')}
+                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+                    >
+                      <h2 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h2>
                       <p className="text-sm text-gray-600">Preporučite nas i ostvarite popuste!</p>
                     </div>
                   </div>
