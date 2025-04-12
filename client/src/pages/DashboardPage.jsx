@@ -88,7 +88,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 font-sans relative">
+<div className="flex min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
 
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
@@ -98,12 +98,12 @@ const DashboardPage = () => {
       />
 
       {/* Sidebar */}
-      <div
-        ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-        md:translate-x-0 md:static md:block`}
-      >
+          <div
+            ref={sidebarRef}
+            className={`fixed top-0 left-0 h-full w-64 max-w-full bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+            md:translate-x-0 md:static md:block`}
+          >
         <div className="p-4 text-xl font-bold border-b">📋 Panel</div>
         <nav className="p-4 space-y-2">
           {tabs.map((tab) => (
