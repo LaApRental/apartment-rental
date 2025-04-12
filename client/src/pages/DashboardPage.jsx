@@ -9,13 +9,15 @@ import {
   FaUserCircle,
   FaSignOutAlt
 } from 'react-icons/fa';
+import HostProfile from './HostProfile';
 
 const tabs = [
   { key: 'overview', label: 'Početna', icon: <FaHome /> },
   { key: 'listings', label: 'Oglasi', icon: <FaListAlt /> },
   { key: 'inquiries', label: 'Upiti', icon: <FaEnvelope /> },
   { key: 'comments', label: 'Komentari', icon: <FaCommentDots /> },
-  { key: 'invite', label: 'Pozovi prijatelja', icon: <FaUserFriends /> }
+  { key: 'invite', label: 'Pozovi prijatelja', icon: <FaUserFriends /> },
+  { key: 'hostProfile', label: 'Profil domaćina', icon: <FaUserCircle /> }
 ];
 
 const DashboardPage = () => {
@@ -79,6 +81,8 @@ const DashboardPage = () => {
         return <div>💬 Ovdje su komentari gostiju.</div>;
       case 'invite':
         return <div>🎁 Podijelite link i pozovite prijatelje.</div>;
+      case 'hostProfile':
+        return <HostProfile />;
       default:
         return null;
     }
