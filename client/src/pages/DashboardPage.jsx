@@ -21,51 +21,56 @@ const DashboardPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const renderContent = () => {
-  switch (activeTab) {
-              case 'overview':
-                return (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div
-                      onClick={() => setActiveTab('listings')}
-                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
-                    >
-                      <h2 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h2>
-                      <p className="text-sm text-gray-600">Kliknite za uređivanje svojih oglasa.</p>
-                    </div>
-          
-                    <div
-                      onClick={() => setActiveTab('inquiries')}
-                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
-                    >
-                      <h2 className="text-lg font-semibold mb-2">📨 Pregled upita</h2>
-                      <p className="text-sm text-gray-600">Upravljajte svim upitima svojih gostiju.</p>
-                    </div>
-          
-                    <div
-                      onClick={() => setActiveTab('comments')}
-                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
-                    >
-                      <h2 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h2>
-                      <p className="text-sm text-gray-600">Pogledajte i odgovorite na komentare gostiju.</p>
-                    </div>
-          
-                    <div
-                      onClick={() => setActiveTab('invite')}
-                      className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
-                    >
-                      <h2 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h2>
-                      <p className="text-sm text-gray-600">Preporučite nas i ostvarite popuste!</p>
-                    </div>
-                  </div>
-                );}
+    switch (activeTab) {
+      case 'overview':
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div
+              onClick={() => setActiveTab('listings')}
+              className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+            >
+              <h2 className="text-lg font-semibold mb-2">✏️ Uređivanje oglasa</h2>
+              <p className="text-sm text-gray-600">Kliknite za uređivanje svojih oglasa.</p>
+            </div>
+
+            <div
+              onClick={() => setActiveTab('inquiries')}
+              className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+            >
+              <h2 className="text-lg font-semibold mb-2">📨 Pregled upita</h2>
+              <p className="text-sm text-gray-600">Upravljajte svim upitima svojih gostiju.</p>
+            </div>
+
+            <div
+              onClick={() => setActiveTab('comments')}
+              className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+            >
+              <h2 className="text-lg font-semibold mb-2">💬 Komentari gostiju</h2>
+              <p className="text-sm text-gray-600">Pogledajte i odgovorite na komentare gostiju.</p>
+            </div>
+
+            <div
+              onClick={() => setActiveTab('invite')}
+              className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg p-5 transition"
+            >
+              <h2 className="text-lg font-semibold mb-2">🎁 Pozovite prijatelja</h2>
+              <p className="text-sm text-gray-600">Preporučite nas i ostvarite popuste!</p>
+            </div>
+          </div>
+        );
+
       case 'listings':
-        return <div>Ovdje će biti vaši oglasi.</div>;
+        return <div>📋 Ovdje će biti vaši oglasi.</div>;
+
       case 'inquiries':
-        return <div>Ovdje su vaši upiti.</div>;
+        return <div>📨 Ovdje su vaši upiti.</div>;
+
       case 'comments':
-        return <div>Ovdje su komentari gostiju.</div>;
+        return <div>💬 Ovdje su komentari gostiju.</div>;
+
       case 'invite':
-        return <div>Podijelite link i pozovite prijatelje.</div>;
+        return <div>🎁 Podijelite link i pozovite prijatelje.</div>;
+
       default:
         return null;
     }
@@ -97,8 +102,9 @@ const DashboardPage = () => {
         </nav>
       </div>
 
-      {/* Main content */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col">
+        {/* Mobile Header */}
         <header className="bg-white p-4 shadow flex items-center justify-between md:hidden">
           <button onClick={() => setSidebarOpen(!sidebarOpen)}>
             <FaBars size={20} />
@@ -107,11 +113,10 @@ const DashboardPage = () => {
           <div></div>
         </header>
 
-      <main className="p-6">{renderContent()}</main>
+        <main className="p-6">{renderContent()}</main>
       </div>
     </div>
   );
 };
 
 export default DashboardPage;
-
