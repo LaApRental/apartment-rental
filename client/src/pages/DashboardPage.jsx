@@ -103,7 +103,7 @@ useEffect(() => {
   };
 
   return (
-  <div className="w-full min-h-screen bg-gray-100 font-sans relative overflow-x-hidden">
+<div className="w-full sm:max-w-screen-md sm:mx-auto bg-white shadow rounded-lg p-4 sm:p-6 sm:my-6 overflow-x-hidden">
   <div className="flex w-full max-w-screen-2xl mx-auto">
       {/* 💡 Always present Backdrop (just toggle opacity + interactivity) */}
       <div
