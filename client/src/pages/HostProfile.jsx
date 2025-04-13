@@ -40,8 +40,7 @@ const HostProfile = () => {
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
-    return (
-    <>) => document.removeEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   const handlePhotoChange = (e) => {
@@ -248,8 +247,6 @@ const HostProfile = () => {
     </div>
   );
 };
-
-    </>
   );
 };
 
