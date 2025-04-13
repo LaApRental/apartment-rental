@@ -127,7 +127,7 @@ useEffect(() => {
             formData.append('photo', photo); // file object
           }
       
-          const res = await fetch(`${API_BASE}/profile/upload`, {
+          const res = await fetch(`${API_BASE}/api/profile/upload`, {
             method: 'POST',
             body: formData,
           });
