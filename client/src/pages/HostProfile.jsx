@@ -43,31 +43,36 @@ const HostProfile = () => {
     return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
-        useEffect(() => {
-        const fetchProfile = async () => {
-          const user = JSON.parse(sessionStorage.getItem('user'));
-          const userId = user?._id;
-          if (!userId) return;
-      
-          try {
-            const API_BASE = process.env.REACT_APP_API_URL;
-            const res = await fetch(`${API_BASE}/profile?userId=${userId}`);
-            const data = await res.json();
-      
-            if (res.ok) {
-              setFirstName(data.firstName || '');
-              setLastName(data.lastName || '');
-              setDescriptions(data.descriptions || {});
-              setTranslatedStatus(data.translatedStatus || {});
-              if (data.photo) setPreview(data.photo);
-            }
-          } catch (err) {
-            console.error('Greška pri dohvaćanju profila:', err);
-          }
-        };
-      
-        fetchProfile();
-      }, []);
+useEffect(() => {
+  const fetchProfile = async () => {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const userId = user?._id;
+    if (!userId) return;
+
+    try {
+      const API_BASE = process.env.REACT_APP_API_URL;
+      const res = await fetch(`${API_BASE}/profile?userId=${userId}`);
+      const data = await res.json();
+
+      if (res.ok && data) {
+        setFirstName(data.firstName || user.ime || '');
+        setLastName(data.lastName || user.prezime || '');
+        setDescriptions(data.descriptions || {});
+        setTranslatedStatus(data.translatedStatus || {});
+        if (data.photo) setPreview(data.photo);
+      } else {
+        // No profile found → use user's registered name
+        setFirstName(user.ime || '');
+        setLastName(user.prezime || '');
+      }
+    } catch (err) {
+      console.error('Greška pri dohvaćanju profila:', err);
+    }
+  };
+
+  fetchProfile();
+}, []);
+  
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
