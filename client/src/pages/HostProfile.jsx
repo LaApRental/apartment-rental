@@ -27,6 +27,7 @@ const HostProfile = () => {
   const [preview, setPreview] = useState(null);
   const pillsRef = useRef({});
   const textareaRef = useRef(null);
+  const hiddenInputRef = useRef(null);
   const [showStickyBar, setShowStickyBar] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -62,16 +63,20 @@ const HostProfile = () => {
     if (!hrText.trim()) {
       setSelectedLang('hr');
 
+      // Safari keyboard trick
       setTimeout(() => {
-        const textarea = textareaRef.current;
-        if (textarea) {
-          textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          textarea.blur(); // Safari fix: blur first
-          setTimeout(() => {
-            textarea.focus(); // then focus to trigger keyboard
-          }, 100);
+        if (hiddenInputRef.current) {
+          hiddenInputRef.current.focus();
         }
-      }, 100);
+
+        setTimeout(() => {
+          const textarea = textareaRef.current;
+          if (textarea) {
+            textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            textarea.focus();
+          }
+        }, 50);
+      }, 50);
 
       return;
     }
@@ -103,6 +108,14 @@ const HostProfile = () => {
 
   return (
     <div className="bg-white pt-2 pb-28">
+      {/* Hidden input to trigger Safari keyboard */}
+      <input
+        ref={hiddenInputRef}
+        type="text"
+        className="absolute opacity-0 pointer-events-none"
+        tabIndex={-1}
+      />
+
       <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
           🧑‍💼 Profil domaćina
