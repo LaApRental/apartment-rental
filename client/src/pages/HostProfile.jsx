@@ -26,37 +26,19 @@ const HostProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
   const pillsRef = useRef({});
-  const stickyRef = useRef(null);
+  const [showStickyBar, setShowStickyBar] = useState(true);
 
-  // Scroll to Croatian pill on mount
+  // ⏳ Disable sticky bar during tab suspension, re-enable after short delay
   useEffect(() => {
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        const pill = pillsRef.current['hr'];
-        pill?.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
-      });
-    }
-  }, []);
-
-  // 🧠 Prevent sticky layout bug after mobile wake
-  useEffect(() => {
-    let timeout;
     const handleVisibility = () => {
-      if (document.visibilityState === 'visible') {
-        const bar = stickyRef.current;
-        if (bar) {
-          bar.style.position = 'static';
-          timeout = setTimeout(() => {
-            bar.style.position = 'fixed';
-          }, 100);
-        }
+      if (document.visibilityState === 'hidden') {
+        setShowStickyBar(false);
+      } else {
+        setTimeout(() => setShowStickyBar(true), 50);
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
-    return () => {
-      clearTimeout(timeout);
-      document.removeEventListener('visibilitychange', handleVisibility);
-    };
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   const handlePhotoChange = (e) => {
@@ -220,26 +202,26 @@ const HostProfile = () => {
         </div>
 
         {/* Sticky Save Bar (mobile) */}
-        <div
-          ref={stickyRef}
-          id="sticky-save-bar"
-          className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
-          style={{
-            backfaceVisibility: 'hidden',
-            contain: 'layout paint',
-            containIntrinsicSize: '48px',
-          }}
-        >
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg shadow-sm">
-            💾 Spremi
-          </button>
-          <button
-            onClick={handleTranslate}
-            className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg shadow-sm"
+        {showStickyBar && (
+          <div
+            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
+            style={{
+              backfaceVisibility: 'hidden',
+              contain: 'layout paint',
+              containIntrinsicSize: '48px',
+            }}
           >
-            🔁 Prevedi sve
-          </button>
-        </div>
+            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg shadow-sm">
+              💾 Spremi
+            </button>
+            <button
+              onClick={handleTranslate}
+              className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg shadow-sm"
+            >
+              🔁 Prevedi sve
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
