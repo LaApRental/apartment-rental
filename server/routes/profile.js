@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
 
 // ✅ POST (JSON version — fallback if needed)
 router.post('/', async (req, res) => {
+  console.log('🛠️ Received userId:', req.body.userId);
   const { userId, firstName, lastName, photo, descriptions, translatedStatus } = req.body;
 
   try {
