@@ -41,6 +41,8 @@ const roomRoutes = require('./routes/room');
 const bookingRoutes = require('./routes/booking');
 const adminRoutes = require('./routes/admin');
 const searchRoutes = require('./routes/search');
+const profileRoutes = require('./routes/profile');
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertyRoutes);
@@ -48,6 +50,7 @@ app.use('/api/rooms', roomRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/profile', profileRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
