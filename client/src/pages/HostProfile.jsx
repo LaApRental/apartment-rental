@@ -27,9 +27,9 @@ const HostProfile = () => {
   const [preview, setPreview] = useState(null);
   const pillsRef = useRef({});
   const textareaRef = useRef(null);
-  const hiddenInputRef = useRef(null);
   const [showStickyBar, setShowStickyBar] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
+  const [showCroatianWarning, setShowCroatianWarning] = useState(false);
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -51,35 +51,17 @@ const HostProfile = () => {
     }
   };
 
-  const handleDescriptionChange = (e) => {
-    const text = e.target.value;
-    setDescriptions((prev) => ({ ...prev, [selectedLang]: text }));
-    setTranslatedStatus((prev) => ({ ...prev, [selectedLang]: 'manual' }));
-  };
-
   const handleTranslate = () => {
     const hrText = descriptions['hr'] || '';
 
     if (!hrText.trim()) {
       setSelectedLang('hr');
-
-      // Safari keyboard trick
-      setTimeout(() => {
-        if (hiddenInputRef.current) {
-          hiddenInputRef.current.focus();
-        }
-
-        setTimeout(() => {
-          const textarea = textareaRef.current;
-          if (textarea) {
-            textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            textarea.focus();
-          }
-        }, 50);
-      }, 50);
-
+      setShowCroatianWarning(true);
+      textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    setShowCroatianWarning(false);
 
     const updated = { ...descriptions };
     const status = { ...translatedStatus };
@@ -108,14 +90,6 @@ const HostProfile = () => {
 
   return (
     <div className="bg-white pt-2 pb-28">
-      {/* Hidden input to trigger Safari keyboard */}
-      <input
-        ref={hiddenInputRef}
-        type="text"
-        className="absolute opacity-0 pointer-events-none"
-        tabIndex={-1}
-      />
-
       <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
           🧑‍💼 Profil domaćina
@@ -179,9 +153,7 @@ const HostProfile = () => {
                 ref={(el) => (pillsRef.current[lang.code] = el)}
                 onClick={() => setSelectedLang(lang.code)}
                 className={`${getPillClasses(lang.code)} ${
-                  selectedLang === lang.code
-                    ? 'ring-2 ring-black ring-offset-2'
-                    : ''
+                  selectedLang === lang.code ? 'ring-2 ring-black ring-offset-2' : ''
                 }`}
               >
                 <span>{lang.label}</span>
@@ -209,13 +181,26 @@ const HostProfile = () => {
               </span>
             )}
           </div>
+
+          {selectedLang === 'hr' && showCroatianWarning && (
+            <p className="text-sm text-red-500 mb-2">
+              Molimo prvo unesite opis na hrvatskom jeziku.
+            </p>
+          )}
+
           <textarea
             ref={textareaRef}
             onFocus={() => setIsTyping(true)}
             onBlur={() => setIsTyping(false)}
             rows={6}
             value={descriptions[selectedLang] || ''}
-            onChange={handleDescriptionChange}
+            onChange={(e) => {
+              setDescriptions((prev) => ({ ...prev, [selectedLang]: e.target.value }));
+              setTranslatedStatus((prev) => ({ ...prev, [selectedLang]: 'manual' }));
+              if (selectedLang === 'hr') {
+                setShowCroatianWarning(false);
+              }
+            }}
             className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all resize-y"
             placeholder="Unesite opis profila..."
           />
