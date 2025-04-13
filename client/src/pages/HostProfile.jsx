@@ -107,38 +107,41 @@ useEffect(() => {
     setDescriptions(updated);
     setTranslatedStatus(status);
   };
-        const handleSave = async () => {
-          const user = JSON.parse(sessionStorage.getItem('user'));
-          const userId = user?._id;
-        
-          if (!userId) return alert('Niste prijavljeni.');
-        
-          try {
-              const API_BASE = process.env.REACT_APP_API_URL;
-              const res = await fetch(`${API_BASE}/profile`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                userId,
-                firstName,
-                lastName,
-                photo: preview,
-                descriptions,
-                translatedStatus,
-              }),
-            });
-        
-            const data = await res.json();
-            if (data.success) {
-              alert('✅ Profil spremljen!');
-            } else {
-              alert('❌ Greška pri spremanju profila.');
-            }
-          } catch (err) {
-            console.error(err);
-            alert('❌ Greška na mreži.');
+      const handleSave = async () => {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const userId = user?._id;
+        if (!userId) return alert('Niste prijavljeni.');
+      
+        try {
+          const API_BASE = process.env.REACT_APP_API_URL;
+          const formData = new FormData();
+      
+          formData.append('userId', userId);
+          formData.append('firstName', firstName);
+          formData.append('lastName', lastName);
+          formData.append('descriptions', JSON.stringify(descriptions));
+          formData.append('translatedStatus', JSON.stringify(translatedStatus));
+      
+          if (photo) {
+            formData.append('photo', photo); // file object
           }
-        };
+      
+          const res = await fetch(`${API_BASE}/profile/upload`, {
+            method: 'POST',
+            body: formData,
+          });
+      
+          const data = await res.json();
+          if (data.success) {
+            alert('✅ Profil spremljen!');
+          } else {
+            alert('❌ Greška pri spremanju profila.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('❌ Greška na mreži.');
+        }
+      };
 
   const getPillClasses = (code) => {
     const base =
