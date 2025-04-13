@@ -26,7 +26,9 @@ const HostProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
   const pillsRef = useRef({});
+  const textareaRef = useRef(null);
   const [showStickyBar, setShowStickyBar] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -59,12 +61,9 @@ const HostProfile = () => {
     if (!hrText.trim()) {
       setSelectedLang('hr');
       setTimeout(() => {
-        const textarea = document.querySelector('textarea');
-        if (textarea) {
-          textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          textarea.focus();
-        }
-      }, 50);
+        textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        textareaRef.current?.focus();
+      }, 10);
       return;
     }
 
@@ -189,6 +188,9 @@ const HostProfile = () => {
             )}
           </div>
           <textarea
+            ref={textareaRef}
+            onFocus={() => setIsTyping(true)}
+            onBlur={() => setIsTyping(false)}
             rows={6}
             value={descriptions[selectedLang] || ''}
             onChange={handleDescriptionChange}
@@ -211,7 +213,7 @@ const HostProfile = () => {
         </div>
 
         {/* Sticky Save Bar (mobile) */}
-        {showStickyBar && (
+        {showStickyBar && !isTyping && (
           <div
             className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
             style={{
