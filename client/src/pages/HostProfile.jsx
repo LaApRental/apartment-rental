@@ -221,6 +221,14 @@ const HostProfile = () => {
 
         {/* Sticky Save Bar (mobile) */}
         {showStickyBar && (
+          <div
+            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
+            style={{
+              backfaceVisibility: 'hidden',
+              contain: 'layout paint',
+              containIntrinsicSize: '48px',
+            }}
+          >
 
 <button
   onClick={handleTranslate}
@@ -233,7 +241,8 @@ const HostProfile = () => {
 >
   Spremi
 </button>
-      
+            
+          </div>
         )}
       </div>
     </div>
