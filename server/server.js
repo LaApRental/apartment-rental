@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const path = require('path');
 
@@ -33,7 +32,6 @@ app.use(cors({
 
 app.use(express.json()); // ✅ Needed
 app.use(bodyParser.json());
-app.use(fileUpload());
 
 
 // Routes
