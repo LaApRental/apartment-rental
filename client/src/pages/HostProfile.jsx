@@ -28,7 +28,6 @@ const HostProfile = () => {
   const pillsRef = useRef({});
   const [showStickyBar, setShowStickyBar] = useState(true);
 
-  // ⏳ Disable sticky bar during tab suspension, re-enable after short delay
   useEffect(() => {
     const handleVisibility = () => {
       if (document.visibilityState === 'hidden') {
@@ -85,7 +84,7 @@ const HostProfile = () => {
   };
 
   return (
-    <div className="bg-white pt-2 sm:bg-gray-50 sm:pt-6 pb-28">
+    <div className="bg-white pt-2 pb-28">
       <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
           🧑‍💼 Profil domaćina
@@ -102,7 +101,7 @@ const HostProfile = () => {
             <input
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
               placeholder="Unesite ime"
             />
           </div>
@@ -113,7 +112,7 @@ const HostProfile = () => {
             <input
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
               placeholder="Unesite prezime"
             />
           </div>
@@ -127,8 +126,8 @@ const HostProfile = () => {
               className="w-28 h-28 rounded-full object-cover border-2 border-gray-200 mb-4 mx-auto shadow-sm"
             />
           )}
-          <label className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg shadow-sm cursor-pointer transition-all duration-200">
-            <span className="mr-2">📤</span> Odaberite Vašu fotografiju
+          <label className="inline-flex items-center bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-md cursor-pointer transition-all">
+            Odaberite Vašu fotografiju
             <input
               type="file"
               accept="image/*"
@@ -150,7 +149,7 @@ const HostProfile = () => {
                 onClick={() => setSelectedLang(lang.code)}
                 className={`${getPillClasses(lang.code)} ${
                   selectedLang === lang.code
-                    ? 'ring-2 ring-blue-500 ring-offset-2'
+                    ? 'ring-2 ring-black ring-offset-2'
                     : ''
                 }`}
               >
@@ -183,21 +182,21 @@ const HostProfile = () => {
             rows={6}
             value={descriptions[selectedLang] || ''}
             onChange={handleDescriptionChange}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-y"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all resize-y"
             placeholder="Unesite opis profila..."
           />
         </div>
 
-        {/* Desktop Save Buttons */}
+        {/* Desktop Buttons */}
         <div className="hidden sm:flex gap-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-sm flex items-center gap-2 transition-all duration-200">
-            <span>💾</span> Spremi profil
+          <button className="bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-md transition">
+            Spremi
           </button>
           <button
             onClick={handleTranslate}
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-sm flex items-center gap-2 transition-all duration-200"
+            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full shadow-md transition"
           >
-            <span>🔁</span> Prevedi automatski na sve jezike
+            Prevedi sve
           </button>
         </div>
 
@@ -211,14 +210,14 @@ const HostProfile = () => {
               containIntrinsicSize: '48px',
             }}
           >
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg shadow-sm">
-              💾 Spremi
+            <button className="w-full bg-black hover:bg-neutral-800 text-white px-4 py-2.5 rounded-full shadow-md transition">
+              Spremi
             </button>
             <button
               onClick={handleTranslate}
-              className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg shadow-sm"
+              className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-full shadow-md transition"
             >
-              🔁 Prevedi sve
+              Prevedi sve
             </button>
           </div>
         )}
