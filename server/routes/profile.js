@@ -16,9 +16,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ✅ GET /api/profile
 router.get('/', async (req, res) => {
   const { userId } = req.query;
+  console.log('📥 GET /profile called with userId:', userId); // ✅ Add this
 
   try {
     const profile = await HostProfile.findOne({ userId });
