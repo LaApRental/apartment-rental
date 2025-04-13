@@ -52,7 +52,7 @@ const HostProfile = () => {
     languages.forEach(({ code }) => {
       if (code !== 'hr' && !descriptions[code]) {
         updatedDescriptions[code] = hrText;
-        updatedStatus[code] = 'translated';
+        updatedStatus[code] = 'manual'; // Always green
       }
     });
 
@@ -65,8 +65,9 @@ const HostProfile = () => {
       'px-3 py-1.5 text-sm font-medium rounded-full border transition flex items-center gap-2 whitespace-nowrap cursor-pointer';
     const status = translatedStatus[code];
 
-    if (status === 'manual') return `${base} bg-green-50 text-green-700 border-green-200`;
-    if (status === 'translated') return `${base} bg-yellow-50 text-yellow-700 border-yellow-200`;
+    if (status === 'manual' || status === 'translated') {
+      return `${base} bg-green-50 text-green-700 border-green-200`;
+    }
     return `${base} bg-gray-100 text-gray-600 border-gray-200`;
   };
 
@@ -134,18 +135,12 @@ const HostProfile = () => {
         </div>
 
         {/* Description Editor */}
-        <div className="mb-6">
+        <div className="mb-4">
           <div className="flex justify-between items-center mb-1.5">
             <label className="block text-sm font-medium text-gray-700">📝 Opis ({selectedLang.toUpperCase()})</label>
             {descriptions[selectedLang] && (
-              <span
-                className={`text-xs px-2.5 py-1 rounded-full font-medium ${
-                  translatedStatus[selectedLang] === 'translated'
-                    ? 'bg-yellow-50 text-yellow-700'
-                    : 'bg-green-50 text-green-700'
-                }`}
-              >
-                {translatedStatus[selectedLang] === 'translated' ? '🔁 Prevedeno automatski' : '✍️ Ručno uneseno'}
+              <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-green-50 text-green-700">
+                Ručno uneseno
               </span>
             )}
           </div>
@@ -167,21 +162,19 @@ const HostProfile = () => {
             placeholder="Unesite opis profila..."
           />
         </div>
-      </div>
 
-      {/* Sticky Footer for Mobile Only */}
-      <div className="block sm:hidden sticky bottom-0 bg-white px-4 py-3 border-t border-gray-200 flex justify-between z-10">
-        <button
-          onClick={handleTranslate}
-          className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-green-600 text-green-700 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-          Prevedi automatski
-        </button>
-        <button
-          className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-black text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black"
-        >
-          Spremi promjene
-        </button>
+        {/* Action Buttons */}
+        <div className="mt-6 flex flex-col gap-3">
+          <button
+            onClick={handleTranslate}
+            className="w-full border border-green-600 text-green-700 hover:bg-green-50 py-2.5 px-4 rounded-full font-semibold transition"
+          >
+            Prevedi automatski
+          </button>
+          <button className="w-full border border-black text-black hover:bg-gray-100 py-2.5 px-4 rounded-full font-semibold transition">
+            Spremi promjene
+          </button>
+        </div>
       </div>
     </div>
   );
