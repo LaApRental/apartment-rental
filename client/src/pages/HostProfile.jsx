@@ -52,7 +52,7 @@ useEffect(() => {
 
     try {
       const API_BASE = process.env.REACT_APP_API_URL;
-      const res = await fetch(`${API_BASE}/profile?userId=${userId}`);
+      const res = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
       const data = await res.json();
 
       if (res.ok && data) {
