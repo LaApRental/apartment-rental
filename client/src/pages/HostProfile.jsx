@@ -60,7 +60,10 @@ const HostProfile = () => {
       setSelectedLang('hr');
       setTimeout(() => {
         const textarea = document.querySelector('textarea');
-        textarea?.focus();
+        if (textarea) {
+          textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          textarea.focus();
+        }
       }, 50);
       return;
     }
