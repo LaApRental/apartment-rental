@@ -3,6 +3,22 @@ const express = require('express');
 const router = express.Router();
 const HostProfile = require('../models/HostProfile');
 
+// GET /api/profile?userId=...
+router.get('/', async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    const profile = await HostProfile.findOne({ userId });
+    if (!profile) return res.status(404).json({ message: 'Profil nije pronađen.' });
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Greška na serveru.' });
+  }
+});
+
+
 router.post('/', async (req, res) => {
   const { userId, firstName, lastName, photo, descriptions, translatedStatus } = req.body;
 
