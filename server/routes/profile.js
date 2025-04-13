@@ -1,7 +1,20 @@
 // routes/profile.js
 const express = require('express');
 const router = express.Router();
+
+      // Configure multer for image storage
+      const storage = multer.diskStorage({
+        destination: 'uploads/',
+        filename: (req, file, cb) => {
+          const uniqueName = `${Date.now()}-${file.originalname}`;
+          cb(null, uniqueName);
+        }
+      });
+
+const upload = multer({ storage });
 const HostProfile = require('../models/HostProfile');
+const multer = require('multer');
+const path = require('path');
 
 // GET /api/profile?userId=...
 router.get('/', async (req, res) => {
