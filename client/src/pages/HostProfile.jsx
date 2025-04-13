@@ -112,41 +112,43 @@ useEffect(() => {
     setDescriptions(updated);
     setTranslatedStatus(status);
   };
-      const handleSave = async () => {
-        const user = JSON.parse(sessionStorage.getItem('user'));
-        const userId = user?._id;
-        if (!userId) return alert('Niste prijavljeni.');
-      
-        try {
-          const API_BASE = process.env.REACT_APP_API_URL;
-          const formData = new FormData();
-      
-          formData.append('userId', userId);
-          formData.append('firstName', firstName);
-          formData.append('lastName', lastName);
-          formData.append('descriptions', JSON.stringify(descriptions));
-          formData.append('translatedStatus', JSON.stringify(translatedStatus));
-      
-          if (photo) {
-            formData.append('photo', photo); // file object
-          }
-      
-          const res = await fetch(`${API_BASE}/api/profile/upload`, {
-            method: 'POST',
-            body: formData,
-          });
-      
-          const data = await res.json();
-          if (data.success) {
-            alert('✅ Profil spremljen!');
-          } else {
-            alert('❌ Greška pri spremanju profila.');
-          }
-        } catch (err) {
-          console.error(err);
-          alert('❌ Greška na mreži.');
-        }
-      };
+const handleSave = async () => {
+  try {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const userId = user?._id;
+    if (!userId) return alert('Niste prijavljeni.');
+
+    const formData = new FormData();
+    formData.append('userId', userId);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('descriptions', JSON.stringify(descriptions));
+    formData.append('translatedStatus', JSON.stringify(translatedStatus));
+    if (photo) formData.append('photo', photo);
+
+    // ✅ DEBUG
+    for (let [key, value] of formData.entries()) {
+      console.log(`📤 ${key}:`, value);
+    }
+
+    const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL;
+
+    const res = await fetch(`${API_BASE}/api/profile/upload`, {
+      method: 'POST',
+      body: formData, // ✅ no headers here!
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      alert('✅ Profil spremljen!');
+    } else {
+      alert('❌ Greška pri spremanju profila.');
+    }
+  } catch (err) {
+    console.error('💥 Error saving profile:', err);
+    alert('Greška na mreži.');
+  }
+};
 
   const getPillClasses = (code) => {
     const base =
