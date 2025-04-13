@@ -57,7 +57,7 @@ const HostProfile = () => {
     if (!hrText.trim()) {
       setSelectedLang('hr');
       setShowCroatianWarning(true);
-      textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
 
