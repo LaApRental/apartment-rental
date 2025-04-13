@@ -206,18 +206,21 @@ const HostProfile = () => {
           />
         </div>
 
-        {/* Desktop Buttons */}
-        <div className="hidden sm:flex gap-4">
-          <button className="bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-md transition">
-            Spremi
-          </button>
-          <button
-            onClick={handleTranslate}
-            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full shadow-md transition"
-          >
-            Prevedi automatski
-          </button>
-        </div>
+
+              {/* Desktop Buttons */}
+              <div className="hidden sm:flex gap-4">
+                <button
+                  className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
+                >
+                  Spremi
+                </button>
+                <button
+                  onClick={handleTranslate}
+                  className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
+                >
+                  Prevedi automatski
+                </button>
+              </div>
 
         {/* Sticky Save Bar (mobile) */}
         {showStickyBar && (
