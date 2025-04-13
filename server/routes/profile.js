@@ -68,6 +68,7 @@ router.post('/', async (req, res) => {
 
 // ✅ NEW: POST /api/profile/upload — with real image upload!
 router.post('/upload', upload.single('photo'), async (req, res) => {
+  req.body = Object.fromEntries(Object.entries(req.body).map(([k, v]) => [k, v]));
   const { userId, firstName, lastName, descriptions, translatedStatus } = req.body;
 
   try {
