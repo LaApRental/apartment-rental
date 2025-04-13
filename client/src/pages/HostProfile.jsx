@@ -84,7 +84,7 @@ const HostProfile = () => {
         
           try {
               const API_BASE = process.env.REACT_APP_API_URL;
-              const res = await fetch(`${API_BASE}/api/profile`, {
+              const res = await fetch(`${API_BASE}/profile`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
