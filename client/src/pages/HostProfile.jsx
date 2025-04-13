@@ -47,12 +47,10 @@ useEffect(() => {
   const fetchProfile = async () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const userId = user?._id;
-
     if (!userId) return;
-    console.log('📡 Fetching profile for userId:', userId);
 
     try {
-      const API_BASE = process.env.REACT_APP_API_URL;
+      const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL;
       const res = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
       const data = await res.json();
 
@@ -62,22 +60,14 @@ useEffect(() => {
         setDescriptions(data.descriptions || {});
         setTranslatedStatus(data.translatedStatus || {});
         if (data.photo) setPreview(data.photo);
-      } else {
-        console.error('❌ Profile not found or error:', data.message);
       }
     } catch (err) {
-      console.error('❌ Error fetching profile:', err);
+      console.error('Greška pri dohvaćanju profila:', err);
     }
   };
 
   fetchProfile();
-}, []);
-
-  
-
-  fetchProfile();
-}, []);
-  
+}, []); // ✅ CORRECT
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
