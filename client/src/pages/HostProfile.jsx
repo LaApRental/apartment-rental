@@ -26,7 +26,9 @@ const HostProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
   const pillsRef = useRef({});
+  const stickyRef = useRef(null);
 
+  // Scroll to Croatian pill on mount
   useEffect(() => {
     if ('requestIdleCallback' in window) {
       requestIdleCallback(() => {
@@ -34,6 +36,27 @@ const HostProfile = () => {
         pill?.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
       });
     }
+  }, []);
+
+  // 🧠 Prevent sticky layout bug after mobile wake
+  useEffect(() => {
+    let timeout;
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        const bar = stickyRef.current;
+        if (bar) {
+          bar.style.position = 'static';
+          timeout = setTimeout(() => {
+            bar.style.position = 'fixed';
+          }, 100);
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => {
+      clearTimeout(timeout);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
   const handlePhotoChange = (e) => {
@@ -183,7 +206,7 @@ const HostProfile = () => {
           />
         </div>
 
-        {/* Save Bar for desktop */}
+        {/* Desktop Save Buttons */}
         <div className="hidden sm:flex gap-4">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-sm flex items-center gap-2 transition-all duration-200">
             <span>💾</span> Spremi profil
@@ -196,8 +219,17 @@ const HostProfile = () => {
           </button>
         </div>
 
-        {/* Sticky Save Bar for mobile */}
-        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform" style={{ backfaceVisibility: 'hidden' }}>
+        {/* Sticky Save Bar (mobile) */}
+        <div
+          ref={stickyRef}
+          id="sticky-save-bar"
+          className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
+          style={{
+            backfaceVisibility: 'hidden',
+            contain: 'layout paint',
+            containIntrinsicSize: '48px',
+          }}
+        >
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg shadow-sm">
             💾 Spremi
           </button>
