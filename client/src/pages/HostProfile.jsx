@@ -221,24 +221,19 @@ const HostProfile = () => {
 
         {/* Sticky Save Bar (mobile) */}
         {showStickyBar && (
-          <div
-            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
-            style={{
-              backfaceVisibility: 'hidden',
-              contain: 'layout paint',
-              containIntrinsicSize: '48px',
-            }}
-          >
-            <button
-              onClick={handleTranslate}
-              className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-full shadow-md transition"
-            >
-              Prevedi automatski
-            </button>
-            <button className="w-full bg-black hover:bg-neutral-800 text-white px-4 py-2.5 rounded-full shadow-md transition">
-              Spremi
-            </button>
-          </div>
+
+<button
+  onClick={handleTranslate}
+  className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
+>
+  Prevedi automatski
+</button>
+<button
+  className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
+>
+  Spremi
+</button>
+      
         )}
       </div>
     </div>
