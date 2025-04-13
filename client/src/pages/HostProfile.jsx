@@ -47,7 +47,6 @@ useEffect(() => {
   const fetchProfile = async () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const userId = user?._id;
-    console.log('👤 userId being sent:', userId);
     if (!userId) return;
 
     try {
