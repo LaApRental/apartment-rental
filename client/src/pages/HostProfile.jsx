@@ -50,7 +50,7 @@ useEffect(() => {
     if (!userId) return;
 
     try {
-      const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL;
+      const API_BASE = process.env.REACT_APP_API_URL;
       const res = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
       const data = await res.json();
 
@@ -121,7 +121,7 @@ const handleSave = async () => {
       console.log(`📤 ${key}:`, value);
     }
 
-    const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL;
+const API_BASE = process.env.REACT_APP_API_URL;
 
     const res = await fetch(`${API_BASE}/api/profile/upload`, {
       method: 'POST',
