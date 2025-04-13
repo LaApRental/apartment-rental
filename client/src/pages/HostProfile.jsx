@@ -222,12 +222,12 @@ const HostProfile = () => {
         {/* Sticky Save Bar (mobile) */}
         {(
           <div
-            className="sm:hidden absolute bottom-0 left-0 right-0 $1"
+            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50"
             style={{
               backfaceVisibility: 'hidden',
               contain: 'layout paint',
               containIntrinsicSize: '48px',
-              paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)'
+              paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 8px)'
             }}
           >
             <button
