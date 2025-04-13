@@ -270,6 +270,7 @@ const HostProfile = () => {
   Prevedi automatski
 </button>
 <button
+  onClick={handleSave}
   className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
 >
   Spremi
