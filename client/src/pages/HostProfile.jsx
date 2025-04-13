@@ -59,7 +59,8 @@ useEffect(() => {
         setLastName(data.lastName || '');
         setDescriptions(data.descriptions || {});
         setTranslatedStatus(data.translatedStatus || {});
-        if (data.photo) setPreview(data.photo);
+        if (data.photo)   setPreview(`${API_BASE}${data.photo}`);
+        }
       }
     } catch (err) {
       console.error('Greška pri dohvaćanju profila:', err);
