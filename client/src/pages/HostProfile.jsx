@@ -76,7 +76,7 @@ const HostProfile = () => {
   };
 
   return (
-    <div className="bg-white pt-4 sm:bg-gray-50 sm:pt-6 pb-28">
+    <div className="bg-white pt-2 sm:bg-gray-50 sm:pt-6 pb-28">
       <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
           🧑‍💼 Profil domaćina
@@ -152,9 +152,24 @@ const HostProfile = () => {
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            📝 Opis ({selectedLang.toUpperCase()})
-          </label>
+          <div className="flex justify-between items-center mb-1.5">
+            <label className="block text-sm font-medium text-gray-700">
+              📝 Opis ({selectedLang.toUpperCase()})
+            </label>
+            {descriptions[selectedLang] && (
+              <span
+                className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+                  translatedStatus[selectedLang] === 'translated'
+                    ? 'bg-yellow-50 text-yellow-700'
+                    : 'bg-green-50 text-green-700'
+                }`}
+              >
+                {translatedStatus[selectedLang] === 'translated'
+                  ? '🔁 Prevedeno automatski'
+                  : '✍️ Ručno uneseno'}
+              </span>
+            )}
+          </div>
           <textarea
             rows={6}
             value={descriptions[selectedLang] || ''}
