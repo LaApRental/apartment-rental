@@ -58,12 +58,21 @@ const HostProfile = () => {
 
   const handleTranslate = () => {
     const hrText = descriptions['hr'] || '';
+
     if (!hrText.trim()) {
       setSelectedLang('hr');
+
       setTimeout(() => {
-        textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        textareaRef.current?.focus();
-      }, 10);
+        const textarea = textareaRef.current;
+        if (textarea) {
+          textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          textarea.blur(); // Safari fix: blur first
+          setTimeout(() => {
+            textarea.focus(); // then focus to trigger keyboard
+          }, 100);
+        }
+      }, 100);
+
       return;
     }
 
@@ -239,4 +248,3 @@ const HostProfile = () => {
 };
 
 export default HostProfile;
-
