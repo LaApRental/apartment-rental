@@ -89,11 +89,10 @@ const HostProfile = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-  <div className="flex-1 overflow-y-auto pt-2 pb-36">
-    <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
-      $1
-    </div>
+      <div className="min-h-screen flex flex-col bg-white">
+        <div className="flex-1 overflow-y-auto pt-2 pb-36">
+          <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
+
   </div>
   <div
     className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50"
