@@ -148,19 +148,19 @@ const HostProfile = () => {
         />
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
-        <button
-          onClick={handleTranslate}
-          className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full shadow-md transition"
-        >
-          🔁 Prevedi automatski
-        </button>
-        <button
-          className="bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-md transition"
-        >
-          💾 Spremi promjene
-        </button>
-      </div>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
+            <button
+              onClick={handleTranslate}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-green-600 text-green-700 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-1 transition font-medium"
+            >
+              Prevedi automatski
+            </button>
+            <button
+              className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-black text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition font-medium"
+            >
+              Spremi promjene
+            </button>
+          </div>
     </div>
   );
 };
