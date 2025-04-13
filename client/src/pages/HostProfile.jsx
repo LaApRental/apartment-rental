@@ -236,21 +236,21 @@ const HostProfile = () => {
         </div>
 
 
-              {/* Desktop Buttons */}
-              <div className="hidden sm:flex gap-4">
-                  <button
-                    onClick={handleSave}
-                    className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
-                  >
-                    Spremi
-                  </button>
-                <button
-                  onClick={handleSave}
-                  className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
-                >
-                  Spremi
-                </button>
-              </div>
+          {/* Desktop Buttons */}
+          <div className="hidden sm:flex gap-4">
+            <button
+              onClick={handleSave}
+              className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
+            >
+              Spremi
+            </button>
+            <button
+              onClick={handleTranslate}
+              className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
+            >
+              Prevedi automatski
+            </button>
+          </div>
 
         {/* Sticky Save Bar (mobile) */}
         {showStickyBar && (
@@ -263,18 +263,20 @@ const HostProfile = () => {
             }}
           >
 
-<button
+            <button
   onClick={handleTranslate}
-  className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
+  className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-3 py-2 text-sm shadow-sm transition"
 >
   Prevedi automatski
 </button>
-<button
-  onClick={handleSave}
-  className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-4 py-2.5 shadow-sm transition"
->
-  Spremi
-</button>
+
+
+          <button
+          onClick={handleSave}
+          className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-3 py-2 text-sm shadow-sm transition"
+        >
+          Spremi
+        </button>
             
           </div>
         )}
