@@ -43,7 +43,8 @@ const HostProfile = () => {
     return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
-useEffect(() => {
+
+  useEffect(() => {
   const fetchProfile = async () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const userId = user?._id;
@@ -59,7 +60,8 @@ useEffect(() => {
         setLastName(data.lastName || '');
         setDescriptions(data.descriptions || {});
         setTranslatedStatus(data.translatedStatus || {});
-        if (data.photo)   setPreview(`${API_BASE}${data.photo}`);
+        if (data.photo) {
+          setPreview(`${API_BASE}${data.photo}`);
         }
       }
     } catch (err) {
@@ -68,7 +70,8 @@ useEffect(() => {
   };
 
   fetchProfile();
-}, []); // ✅ CORRECT
+}, []);
+
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
