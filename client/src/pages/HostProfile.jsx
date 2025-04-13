@@ -247,7 +247,5 @@ const HostProfile = () => {
     </div>
   );
 };
-  );
-};
 
 export default HostProfile;
