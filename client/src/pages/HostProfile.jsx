@@ -76,11 +76,13 @@ const HostProfile = () => {
     setDescriptions(updated);
     setTranslatedStatus(status);
   };
-          const handleSave = async () => {
+        const handleSave = async () => {
+          const user = JSON.parse(sessionStorage.getItem('user'));
+          const userId = user?._id;
+        
+          if (!userId) return alert('Niste prijavljeni.');
+        
           try {
-            const userId = localStorage.getItem('userId');
-            if (!userId) return alert('Niste prijavljeni.');
-      
             const res = await fetch('/api/profile', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -93,7 +95,7 @@ const HostProfile = () => {
                 translatedStatus,
               }),
             });
-      
+        
             const data = await res.json();
             if (data.success) {
               alert('✅ Profil spremljen!');
