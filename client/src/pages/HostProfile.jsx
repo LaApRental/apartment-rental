@@ -84,8 +84,8 @@ const HostProfile = () => {
     const status = translatedStatus[code];
 
     if (isTranslated || status === 'translated')
-      return ${base} bg-green-50 text-green-700 border-green-200 hover:bg-green-100;
-    return ${base} bg-red-50 text-red-700 border-red-200 hover:bg-red-100;
+      return `${base} bg-green-50 text-green-700 border-green-200 hover:bg-green-100`;
+    return `${base} bg-red-50 text-red-700 border-red-200 hover:bg-red-100`;
   };
 
   return (
@@ -152,9 +152,9 @@ const HostProfile = () => {
                 key={lang.code}
                 ref={(el) => (pillsRef.current[lang.code] = el)}
                 onClick={() => setSelectedLang(lang.code)}
-                className={${getPillClasses(lang.code)} ${
+                className={`${getPillClasses(lang.code)} ${
                   selectedLang === lang.code ? 'ring-2 ring-black ring-offset-2' : ''
-                }}
+                }`}
               >
                 <span>{lang.label}</span>
               </button>
@@ -169,11 +169,11 @@ const HostProfile = () => {
             </label>
             {descriptions[selectedLang] && (
               <span
-                className={text-xs px-2.5 py-1 rounded-full font-medium ${
+                className={`text-xs px-2.5 py-1 rounded-full font-medium ${
                   translatedStatus[selectedLang] === 'translated'
                     ? 'bg-yellow-50 text-yellow-700'
                     : 'bg-green-50 text-green-700'
-                }}
+                }`}
               >
                 {translatedStatus[selectedLang] === 'translated'
                   ? '🔁 Prevedeno automatski'
