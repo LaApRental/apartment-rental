@@ -7,19 +7,19 @@ router.post('/', async (req, res) => {
   const { userId, firstName, lastName, photo, descriptions, translatedStatus } = req.body;
 
   try {
-    const existing = await HostProfile.findOne({ userId });
+    let profile = await HostProfile.findOne({ userId });
 
-    if (existing) {
-      existing.firstName = firstName;
-      existing.lastName = lastName;
-      existing.photo = photo;
-      existing.descriptions = descriptions;
-      existing.translatedStatus = translatedStatus;
-      await existing.save();
-      return res.json({ success: true, message: 'Profile updated.' });
+    if (profile) {
+      profile.firstName = firstName;
+      profile.lastName = lastName;
+      profile.photo = photo;
+      profile.descriptions = descriptions;
+      profile.translatedStatus = translatedStatus;
+      await profile.save();
+      return res.json({ success: true, message: 'Profil ažuriran.' });
     }
 
-    const newProfile = new HostProfile({
+    profile = new HostProfile({
       userId,
       firstName,
       lastName,
@@ -27,13 +27,14 @@ router.post('/', async (req, res) => {
       descriptions,
       translatedStatus,
     });
-    await newProfile.save();
-    res.status(201).json({ success: true, message: 'Profile created.' });
 
+    await profile.save();
+    res.status(201).json({ success: true, message: 'Profil kreiran.' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Greška na serveru.' });
   }
 });
 
 module.exports = router;
+
