@@ -227,6 +227,7 @@ const HostProfile = () => {
               backfaceVisibility: 'hidden',
               contain: 'layout paint',
               containIntrinsicSize: '48px',
+              paddingBottom: 'env(safe-area-inset-bottom)'
             }}
           >
             <button
