@@ -83,7 +83,8 @@ const HostProfile = () => {
           if (!userId) return alert('Niste prijavljeni.');
         
           try {
-            const res = await fetch('/api/profile', {
+              const API_BASE = import.meta.env.VITE_API_URL;
+              const res = await fetch(`${API_BASE}/api/profile`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
