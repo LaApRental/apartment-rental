@@ -104,9 +104,8 @@ router.post('/login', async (req, res) => {
       console.log('❌ Password mismatch');
       return res.status(400).json({ error: 'Pogrešna lozinka.' });
     }
-
-    console.log('✅ Login success for', user.email);
-    res.json({ message: 'Uspješna prijava!' });
+      console.log('✅ Login success for', user.email);
+      res.json({ message: 'Uspješna prijava!', user });
   } catch (err) {
     console.error('💥 Server error in /login:', err);
     res.status(500).json({ error: 'Greška na serveru.' });
