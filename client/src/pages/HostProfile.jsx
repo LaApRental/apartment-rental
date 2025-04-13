@@ -56,7 +56,14 @@ const HostProfile = () => {
 
   const handleTranslate = () => {
     const hrText = descriptions['hr'] || '';
-    if (!hrText.trim()) return alert('Opis na hrvatskom je prazan.');
+    if (!hrText.trim()) {
+      setSelectedLang('hr');
+      setTimeout(() => {
+        const textarea = document.querySelector('textarea');
+        textarea?.focus();
+      }, 50);
+      return;
+    }
 
     const updated = { ...descriptions };
     const status = { ...translatedStatus };
@@ -210,14 +217,14 @@ const HostProfile = () => {
               containIntrinsicSize: '48px',
             }}
           >
-            <button className="w-full bg-black hover:bg-neutral-800 text-white px-4 py-2.5 rounded-full shadow-md transition">
-              Spremi
-            </button>
             <button
               onClick={handleTranslate}
               className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-full shadow-md transition"
             >
               Prevedi sve
+            </button>
+            <button className="w-full bg-black hover:bg-neutral-800 text-white px-4 py-2.5 rounded-full shadow-md transition">
+              Spremi
             </button>
           </div>
         )}
