@@ -28,8 +28,12 @@ const HostProfile = () => {
   const pillsRef = useRef({});
 
   useEffect(() => {
-    const pill = pillsRef.current['hr'];
-    if (pill) pill.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        const pill = pillsRef.current['hr'];
+        pill?.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
+      });
+    }
   }, []);
 
   const handlePhotoChange = (e) => {
@@ -193,7 +197,7 @@ const HostProfile = () => {
         </div>
 
         {/* Sticky Save Bar for mobile */}
-        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50">
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform" style={{ backfaceVisibility: 'hidden' }}>
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg shadow-sm">
             💾 Spremi
           </button>
