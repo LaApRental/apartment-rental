@@ -169,8 +169,8 @@ const HostProfile = () => {
         </div>
       </div>
 
-      {/* Sticky Footer */}
-      <div className="sticky bottom-0 bg-white px-4 py-3 border-t border-gray-200 flex justify-between">
+      {/* Sticky Footer for Mobile Only */}
+      <div className="block sm:hidden sticky bottom-0 bg-white px-4 py-3 border-t border-gray-200 flex justify-between z-10">
         <button
           onClick={handleTranslate}
           className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-green-600 text-green-700 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600"
