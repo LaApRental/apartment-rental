@@ -60,7 +60,7 @@ const HostProfile = () => {
           setDescriptions(data.descriptions || {});
           setTranslatedStatus(data.translatedStatus || {});
           if (data.photo) {
-            setPreview(`${API_BASE}${data.photo}`);
+            setPreview(data.photo);
           }
         }
       } catch (err) {
