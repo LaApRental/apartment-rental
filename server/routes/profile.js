@@ -1,24 +1,35 @@
-// routes/profile.js
 const express = require('express');
 const router = express.Router();
-const multer = require('multer'); // ✅ move this up
+const multer = require('multer');
 const path = require('path');
 const HostProfile = require('../models/HostProfile');
 
-// Configure multer for image storage
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  }
+// ✅ Cloudinary setup
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// ✅ Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// ✅ Use Cloudinary storage for multer
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'host-profiles',
+    allowed_formats: ['jpg', 'jpeg', 'png'],
+  },
+});
 const upload = multer({ storage });
 
+
+// ✅ GET /api/profile?userId=...
 router.get('/', async (req, res) => {
   const { userId } = req.query;
-  console.log('📥 GET /profile called with userId:', userId); // ✅ Add this
+  console.log('📥 GET /profile called with userId:', userId);
 
   try {
     const profile = await HostProfile.findOne({ userId });
@@ -26,12 +37,13 @@ router.get('/', async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    console.error(err);
+    console.error('❌ GET profile error:', err);
     res.status(500).json({ message: 'Greška na serveru.' });
   }
 });
 
-// ✅ POST (JSON version — fallback if needed)
+
+// ✅ POST (JSON version fallback)
 router.post('/', async (req, res) => {
   console.log('🛠️ Received userId:', req.body.userId);
   const { userId, firstName, lastName, photo, descriptions, translatedStatus } = req.body;
@@ -61,21 +73,21 @@ router.post('/', async (req, res) => {
     await profile.save();
     res.status(201).json({ success: true, message: 'Profil kreiran.' });
   } catch (err) {
-    console.error(err);
+    console.error('❌ POST profile error:', err);
     res.status(500).json({ success: false, message: 'Greška na serveru.' });
   }
 });
 
 
-// ✅ NEW: POST /api/profile/upload — with real image upload!
+// ✅ POST /api/profile/upload — Cloudinary image upload version
 router.post('/upload', upload.single('photo'), async (req, res) => {
   req.body = Object.fromEntries(Object.entries(req.body).map(([k, v]) => [k, v]));
   const { userId, firstName, lastName, descriptions, translatedStatus } = req.body;
+  const photoUrl = req.file ? req.file.path : null; // ✅ Cloudinary returns the full URL
 
   try {
     let profile = await HostProfile.findOne({ userId });
 
-    const photoUrl = req.file ? `/uploads/${req.file.filename}` : null;
     const parsedDescriptions = JSON.parse(descriptions || '{}');
     const parsedStatus = JSON.parse(translatedStatus || '{}');
 
@@ -89,7 +101,7 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
       return res.json({ success: true, message: 'Profil ažuriran s fotografijom.' });
     }
 
-    profile = new HostProfile({
+    const newProfile = new HostProfile({
       userId,
       firstName,
       lastName,
@@ -98,10 +110,10 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
       translatedStatus: parsedStatus,
     });
 
-    await profile.save();
+    await newProfile.save();
     res.status(201).json({ success: true, message: 'Profil kreiran s fotografijom.' });
   } catch (err) {
-    console.error(err);
+    console.error('❌ Upload error:', err);
     res.status(500).json({ success: false, message: 'Greška na serveru.' });
   }
 });
