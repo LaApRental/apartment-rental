@@ -43,35 +43,33 @@ const HostProfile = () => {
     return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
-
   useEffect(() => {
-  const fetchProfile = async () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const userId = user?._id;
-    if (!userId) return;
+    const fetchProfile = async () => {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      const userId = user?._id;
+      if (!userId) return;
 
-    try {
-      const API_BASE = process.env.REACT_APP_API_URL;
-      const res = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
-      const data = await res.json();
+      try {
+        const API_BASE = process.env.REACT_APP_API_URL;
+        const res = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
+        const data = await res.json();
 
-      if (res.ok) {
-        setFirstName(data.firstName || '');
-        setLastName(data.lastName || '');
-        setDescriptions(data.descriptions || {});
-        setTranslatedStatus(data.translatedStatus || {});
-        if (data.photo) {
-          setPreview(`${API_BASE}${data.photo}`);
+        if (res.ok) {
+          setFirstName(data.firstName || '');
+          setLastName(data.lastName || '');
+          setDescriptions(data.descriptions || {});
+          setTranslatedStatus(data.translatedStatus || {});
+          if (data.photo) {
+            setPreview(`${API_BASE}${data.photo}`);
+          }
         }
+      } catch (err) {
+        console.error('Greška pri dohvaćanju profila:', err);
       }
-    } catch (err) {
-      console.error('Greška pri dohvaćanju profila:', err);
-    }
-  };
+    };
 
-  fetchProfile();
-}, []);
-
+    fetchProfile();
+  }, []);
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
@@ -106,99 +104,95 @@ const HostProfile = () => {
     setDescriptions(updated);
     setTranslatedStatus(status);
   };
-const handleSave = async () => {
-  try {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const userId = user?._id;
-    if (!userId) return alert('Niste prijavljeni.');
 
-    const formData = new FormData();
-    formData.append('userId', userId);
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('descriptions', JSON.stringify(descriptions));
-    formData.append('translatedStatus', JSON.stringify(translatedStatus));
-    if (photo) formData.append('photo', photo);
+  const handleSave = async () => {
+    try {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      const userId = user?._id;
+      if (!userId) return alert('Niste prijavljeni.');
 
-    // ✅ DEBUG
-    for (let [key, value] of formData.entries()) {
-      console.log(`📤 ${key}:`, value);
+      const formData = new FormData();
+      formData.append('userId', userId);
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
+      formData.append('descriptions', JSON.stringify(descriptions));
+      formData.append('translatedStatus', JSON.stringify(translatedStatus));
+      if (photo) formData.append('photo', photo);
+
+      const API_BASE = process.env.REACT_APP_API_URL;
+
+      const res = await fetch(`${API_BASE}/api/profile/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert('✅ Profil spremljen!');
+      } else {
+        alert('❌ Greška pri spremanju profila.');
+      }
+    } catch (err) {
+      console.error('💥 Error saving profile:', err);
+      alert('Greška na mreži.');
     }
-
-const API_BASE = process.env.REACT_APP_API_URL;
-
-    const res = await fetch(`${API_BASE}/api/profile/upload`, {
-      method: 'POST',
-      body: formData, // ✅ no headers here!
-    });
-
-    const data = await res.json();
-    if (res.ok && data.success) {
-      alert('✅ Profil spremljen!');
-    } else {
-      alert('❌ Greška pri spremanju profila.');
-    }
-  } catch (err) {
-    console.error('💥 Error saving profile:', err);
-    alert('Greška na mreži.');
-  }
-};
+  };
 
   const getPillClasses = (code) => {
     const base =
-      'px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 flex items-center gap-2 whitespace-nowrap cursor-pointer';
+      'px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 flex items-center gap-2 whitespace-nowrap cursor-pointer shadow-sm';
     const isTranslated = descriptions[code]?.trim();
     const status = translatedStatus[code];
 
     if (isTranslated || status === 'translated')
       return `${base} bg-green-50 text-green-700 border-green-200 hover:bg-green-100`;
-    return `${base} bg-red-50 text-red-700 border-red-200 hover:bg-red-100`;
+    return `${base} bg-gray-100 text-gray-600 border-gray-200 hover:bg-gray-200`;
   };
 
   return (
-    <div className="bg-white pt-2 pb-28">
-      <div className="bg-white shadow-lg sm:rounded-xl sm:mx-auto sm:max-w-screen-md p-4 sm:p-8 relative">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+    <div className="bg-gray-50 pt-4 pb-36">
+      <div className="bg-white shadow-xl rounded-2xl mx-auto max-w-screen-md p-6 sm:p-10">
+        <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center gap-2">
           🧑‍💼 Profil domaćina
         </h2>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-gray-500 mb-8">
           Unesite ime kontakt osobe, Vašu fotografiju i ukratko se predstavite gostima.
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid sm:grid-cols-2 gap-6 mb-8">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Ime kontakt osobe
             </label>
             <input
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
+              className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-black focus:border-black"
               placeholder="Unesite ime"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Prezime kontakt osobe
             </label>
             <input
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all"
+              className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-black focus:border-black"
               placeholder="Unesite prezime"
             />
           </div>
         </div>
 
-        <div className="mb-6 text-center">
+        <div className="mb-8 text-center">
           {preview && (
             <img
               src={preview}
               alt="Preview"
-              className="w-28 h-28 rounded-full object-cover border-2 border-gray-200 mb-4 mx-auto shadow-sm"
+              className="w-28 h-28 rounded-full object-cover border-2 border-gray-200 mb-4 mx-auto shadow-md"
             />
           )}
-          <label className="inline-flex items-center bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-md cursor-pointer transition-all">
+          <label className="inline-flex items-center bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow cursor-pointer">
             Odaberite Vašu fotografiju
             <input
               type="file"
@@ -209,8 +203,8 @@ const API_BASE = process.env.REACT_APP_API_URL;
           </label>
         </div>
 
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <div className="mb-8">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             🌐 Odaberite jezik opisa
           </label>
           <div className="flex flex-wrap gap-2">
@@ -229,14 +223,14 @@ const API_BASE = process.env.REACT_APP_API_URL;
           </div>
         </div>
 
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-1.5">
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
             <label className="block text-sm font-medium text-gray-700">
               📝 Opis ({selectedLang.toUpperCase()})
             </label>
             {descriptions[selectedLang] && (
               <span
-                className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+                className={`text-xs px-3 py-1 rounded-full font-medium ${
                   translatedStatus[selectedLang] === 'translated'
                     ? 'bg-yellow-50 text-yellow-700'
                     : 'bg-green-50 text-green-700'
@@ -268,54 +262,43 @@ const API_BASE = process.env.REACT_APP_API_URL;
                 setShowCroatianWarning(false);
               }
             }}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all resize-y"
+            className="w-full border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-black focus:border-black resize-y"
             placeholder="Unesite opis profila..."
           />
         </div>
 
+        <div className="hidden sm:flex gap-4">
+          <button
+            onClick={handleSave}
+            className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-5 py-2.5 shadow-sm"
+          >
+            Spremi
+          </button>
+          <button
+            onClick={handleTranslate}
+            className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-5 py-2.5 shadow-sm"
+          >
+            Prevedi automatski
+          </button>
+        </div>
 
-          {/* Desktop Buttons */}
-          <div className="hidden sm:flex gap-4">
-            <button
-              onClick={handleSave}
-              className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
-            >
-              Spremi
-            </button>
+        {showStickyBar && (
+          <div
+            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50"
+          >
             <button
               onClick={handleTranslate}
-              className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-5 py-2.5 shadow-sm transition"
+              className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-3 py-2 text-sm shadow-sm"
             >
               Prevedi automatski
             </button>
-          </div>
-
-        {/* Sticky Save Bar (mobile) */}
-        {showStickyBar && (
-          <div
-            className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center gap-3 shadow-xl z-50 will-change-transform"
-            style={{
-              backfaceVisibility: 'hidden',
-              contain: 'layout paint',
-              containIntrinsicSize: '48px',
-            }}
-          >
 
             <button
-  onClick={handleTranslate}
-  className="w-full border border-green-600 text-green-700 hover:bg-green-50 rounded-full font-semibold px-3 py-2 text-sm shadow-sm transition"
->
-  Prevedi automatski
-</button>
-
-
-          <button
-          onClick={handleSave}
-          className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-3 py-2 text-sm shadow-sm transition"
-        >
-          Spremi
-        </button>
-            
+              onClick={handleSave}
+              className="w-full border border-black text-black hover:bg-gray-100 rounded-full font-semibold px-3 py-2 text-sm shadow-sm"
+            >
+              Spremi
+            </button>
           </div>
         )}
       </div>
